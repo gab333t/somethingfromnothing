@@ -1,0 +1,152 @@
+body {
+    background-color: #671352;
+    color: #ECB8EA;
+    overflow: hidden;
+}
+
+/*
+    background-color: #671352; PURPLE
+    color: #ECB8EA;
+
+    background-color: #6e0f08; RED
+    color: #e7bba8;
+
+    background-color: #2a381a; GREEN
+    color: #f0d6a7;
+
+    colors represent mood
+*/
+
+h1 {
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 60px;
+    filter: blur(1px);
+    margin-left: 30px;
+    line-height: 58px;
+    letter-spacing: -1.3px;
+}
+
+.center {
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -200px;
+  }
+  
+  .circle {
+    width: 540px; 
+    height: 540px;
+    border-radius: 50%;
+    background: #ECB8EA;
+    filter: blur(38px);
+  }
+
+h2 {
+    font-family: "IBM Plex Sans JP", serif;
+    font-weight: 350;
+    font-style: normal;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+h3 {
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 30px;
+}
+
+h4 {
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 30px;
+}
+
+.button {
+    position: absolute;
+    text-align: right;
+    top: 30px;
+    right: 35px;
+    line-height: 11px;
+    filter: blur(0.5px);
+    cursor: pointer;
+}
+
+.music {
+    position: absolute;
+    text-align: right;
+    right: 35px;
+    bottom: 25px;
+    line-height: 11px;
+    filter: blur(0.5px);
+}
+
+.coord {
+    position: absolute;
+    text-align: left;
+    vertical-align: bottom;
+    left: 35px;
+    bottom: 25px;
+    line-height: 11px;
+    filter: blur(0.5px);
+}
+
+.bold {
+    font-weight: 650;
+    letter-spacing: 0px;
+}
+
+@media screen and (max-width: 525px){
+    h1 {
+        font-size: 44px;
+        font-weight: 350;
+        letter-spacing: 0.25px;
+        line-height: 42px;
+        filter: blur(0.75px);
+        margin-top: 32px;
+        margin-left: 28px;
+    }
+
+    .center {
+        margin-top: -150px;
+    }
+
+    .circle {
+        width: 280px;
+        height: 280px;
+        filter: blur(30px);
+    }
+
+    h2 {
+        font-size: 16px;
+        line-height: 10px;
+        letter-spacing: 1px;
+    }
+
+    .button {
+        text-align: left;
+        right: 0;
+        left: 35px;
+        top: 120px;
+    }
+
+    .music {
+        text-align: left;
+        right: 0;
+        left: 35px;
+    }
+
+    .coord {
+        bottom: 75px;
+    }
+
+
+    .bold {
+        letter-spacing: 0.3px;
+    }
+}
+
