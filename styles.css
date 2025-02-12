@@ -38,5 +38,5 @@ body {
     border-radius: 50%; /* Make it round */
     border: 5px dashed #ECB8EA; /* Dashed border */
     position: absolute; /* Position on top of the solid circle */
-    filter: blur(1px); /* Optional: add a slight blur effect */
+    filter: blur(1px); 
 }
