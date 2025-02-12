@@ -44,6 +44,15 @@ h1 {
     filter: blur(38px);
   }
 
+  .smallcircle {
+    width: 40px;
+    height: 40px;
+    fill: #ECB8EA;
+    stroke-width: 7px;
+    stroke: #671352;
+    filter: blur(0.5px);
+  }
+
 h2 {
     font-family: "IBM Plex Sans JP", serif;
     font-weight: 350;
