@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>SOMETHING FROM NOTHING</title>
+        <title>Something from Nothing</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="index.css">
@@ -19,40 +18,71 @@
 
         <div class="center">
             <div class="circle"></div>
-            <div class="dash"></div>
         </div>
 
         <div class="smallcircle"></div>
 
-          
         <div class="button">
-            <h2 class="bold">about</h2>
-            <h2 class="bold">options</h2>
+            <h2 class="bold" id="aboutButton">about</h2>
+            <h2 class="bold" id="optionsButton">options</h2>
         </div>
-
-
 
         <div class="music">
             <h2 class="bold">now playing</h2>
             <h2 id="songTitle">silence</h2>
         </div>
-        
+
         <div class="coord">
             <h2 class="bold">elevation</h2>
             <h2 id="coordinates">(-60.2821, 148.6913)</h2>
         </div>
 
         <div class="about-text">
-
+            <h3>About</h3>
+            <h2>
+                PLACEHOLDER
+            </h2>
+            <button class="bold backBtn">back</button>
         </div>
 
         <div class="option-text">
-            <h3>Options</h3>
-            <h2 class="bold">video playback</h2><br><br>
-            <h2 class="bold">audio playback</h2><br><br>
-            <h2 class="bold">switching colors</h2><br><br>
-            <h2 class="bold">alternative text</h2><br><br>
-            <h2 class="bold">blur animation</h2><br><br>
+            <h3>Options</h3><br>
+            <div class="option-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <h2 class="bold">video playback</h2>
+            </div><br>
+            <div class="option-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <h2 class="bold">audio playback</h2>
+            </div><br>
+            <div class="option-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <h2 class="bold">switching colors</h2>
+            </div><br>
+            <div class="option-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <h2 class="bold">alternative text</h2>
+            </div><br>
+            <div class="option-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <h2 class="bold">blur animation</h2>
+            </div><br><br><br>
+            <button class="bold backBtn">back</button>
         </div>
 
         <div class="poem-text">
@@ -60,6 +90,213 @@
                 <h3>The Egg</h3>
                 <h4>Andy Weir</h4>
                 <h2>
+                    PLACEHOLDER
+                </h2>
+            </div>
+            <div class="gentleseduction">
+                <h3>The Gentle Seduction</h3>
+                <h4>Marc Stiegler</h4>
+                <h2>
+                    PLACEHOLDER
+                </h2>
+            </div>
+            <div class="wildgeese">
+                <h3>Wild Geese</h3>
+                <h4>Mary Oliver</h4>
+                <h2>
+                    PLACEHOLDER
+                </h2>
+            </div>
+            <div class="invitation">
+                <h3>The Invitation</h3>
+                <h4>Oriah Mountain Dreamer</h4>
+                <h2>
+                    PLACEHOLDER
+                </h2>
+            </div>
+        </div>
+
+        <audio id="audioPlayer" preload="auto"></audio>
+
+        <script>
+            const musicFiles = [
+                { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
+                { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
+                { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
+                { title: "Disillusionment For The Emotional Type / You'll Never Get To Heaven", src: "music/DisillusionmentForTheEmotionalType_YoullNeverGetToHeaven.mp3" },
+                { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
+                { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
+                { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
+                { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
+                { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
+            ];
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+            shuffleArray(musicFiles);
+
+            const audioPlayer = document.getElementById('audioPlayer');
+            const songTitleElement = document.getElementById('songTitle');
+            const coordinatesElement = document.getElementById('coordinates');
+            let currentTrack = 0;
+
+            function playNextTrack() {
+                audioPlayer.src = musicFiles[currentTrack].src;
+                songTitleElement.textContent = musicFiles[currentTrack].title; 
+                audioPlayer.play();
+                currentTrack = (currentTrack + 1) % musicFiles.length;
+            }
+
+            audioPlayer.addEventListener('ended', playNextTrack);
+
+            audioPlayer.muted = false;
+            playNextTrack();
+
+            document.addEventListener('mousemove', function(event) {
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+            });
+
+            const optionsBtn = document.getElementById('optionsButton');
+            const aboutBtn = document.getElementById('aboutButton');
+            const optionText = document.querySelector('.option-text');
+            const aboutText = document.querySelector('.about-text');
+            const backBtns = document.querySelectorAll('.backBtn');
+            const body = document.body;
+
+            function disableButtons() {
+                optionsBtn.classList.add('disabled');
+                aboutBtn.classList.add('disabled');
+            }
+
+            function enableButtons() {
+                optionsBtn.classList.remove('disabled');
+                aboutBtn.classList.remove('disabled');
+            }
+
+            optionsBtn.addEventListener('click', () => {
+                if (optionsBtn.classList.contains('disabled')) return;
+                body.classList.add('blur');
+                optionText.style.display = 'block';
+                disableButtons();
+            });
+
+            aboutBtn.addEventListener('click', () => {
+                if (aboutBtn.classList.contains('disabled')) return;
+                body.classList.add('blur');
+                aboutText.style.display = 'block';
+                disableButtons();
+            });
+
+            backBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    body.classList.remove('blur');
+                    optionText.style.display = 'none';
+                    aboutText.style.display = 'none';
+                    enableButtons();
+                });
+            });
+        </script>
+    </body>
+</html>
+
+
+
+<!--
+
+
+THE INVITATION
+It doesn’t interest me what you do for a living. I want to know what you ache for and if you dare to dream of meeting your heart’s longing.<br>
+It doesn’t interest me how old you are. I want to know if you will risk looking like a fool for love, for your dream, for the adventure of being alive.<br>
+It doesn’t interest me what planets are squaring your moon.<br>
+I want to know if you have touched the centre of your own sorrow, if you have been opened by life’s betrayals or have become shrivelled and closed from fear of further pain.<br>
+I want to know if you can sit with pain, mine or your own, without moving to hide it, or fade it, or fix it.<br>
+I want to know if you can be with joy, mine or your own; if you can dance with wildness and let the ecstasy fill you to the tips of your fingers and toes without cautioning us to be careful, be realistic, remember the limitations of being human.<br>
+It doesn’t interest me if the story you are telling me is true.<br>
+I want to know if you can disappoint another to be true to yourself. If you can bear the accusation of betrayal and not betray your own soul.<br>
+If you can be faithless and therefore trustworthy.<br>
+I want to know if you can see Beauty even when it is not pretty every day. And if you can source your own life from its presence.<br>
+I want to know if you can live with failure, yours and mine, and still stand at the edge of the lake and shout to the silver of the full moon, ‘Yes.’<br>
+It doesn’t interest me to know where you live or how much money you have.<br>
+I want to know if you can get up after the night of grief and despair, weary and bruised to the bone and do what needs to be done to feed the children.<br>
+It doesn’t interest me who you know or how you came to be here.<br>
+I want to know if you will stand in the centre of the fire with me and not shrink back.<br>
+It doesn’t interest me where or what or with whom you have studied.<br>
+I want to know what sustains you from the inside when all else falls away.<br>
+I want to know if you can be alone with yourself and if you truly like the company you keep in the empty moments.<br>
+
+
+
+WILD GEESE
+                    You do not have to be good.<br>
+                    You do not have to walk on your knees for a hundred miles through the desert repenting.<br>
+                    You only have to let the soft animal of your body love what it loves.<br>
+                    Tell me about despair, yours, and I will tell you mine.<br>
+                    Meanwhile the world goes on.<br>
+                    Meanwhile the sun and the clear pebbles of the rain are moving across the landscapes, over the prairies and the deep trees, the mountains and the rivers.<br>
+                    Meanwhile the wild geese, high in the clean blue air, are heading home again.<br>
+                    Whoever you are, no matter how lonely, the world offers itself to your imagination, calls to you like the wild geese, harsh and exciting -<br>
+                    over and over announcing your place in the family of things.
+
+
+
+THE GENTLE SEDUCTION
+                    He worked with computers; she worked with trees, and the flowers that took hold on the sides of the Mountain.<br>
+                    She was surprised that he was interested in her. He was so smart; she was so ... normal. But he was interesting; he always said something new and different; he was nice.<br>                   
+                    She was 25. He was older, almost 33; sometimes, Jack seemed very old indeed.<br>                    
+                    One day they walked through the mist of a gray day by the Mountain. The forest here on the edge of Rainier glowed in the mist, bright with lush greens. On this day he told her about the future, the future he was building.<br>
+                    Other times when he had spoken of the future, a wild look had entered his eyes. But now his eyes were sharply focused as he talked, as if, this time, he could see it all very clearly. He spoke as if he were describing something as real and obvious as the veins of a leaf hanging down before them on the path.<br>
+                    "Have you ever heard of Singularity?" he asked.<br>
+                    She shook her head. "What's that?"<br>
+                    "Singularity is a time in the future. It'll occur when the rate of change of technology is very great--so great that the effort to keep up with the change will overwhelm us. People will face a whole new set of problems that we can't even imagine." A look of great tranquility smoothed the ridges around his eyes. "On the other hand, all our normal, day to day problems fade away. For example, you'll be immortal."<br>
+                    She shook her head with distaste. "I don't want to live forever," she said.<br>
+                    He smiled, his eyes twinkling. "Of course you do, you just don't know it yet."<br>
+                    She shuddered. "The future scares me."<br>
+                    "There's no reason to fear it. You'll love it." He looked away from her. His next words were bitter, but his tone was resigned. "It pisses me off that you'll live to see it and I won't."<br>
+                    Speaking to the sorrow in his voice, she tried to cheer him. "You'll live to see it too," she replied.<br>
+                    He shook his head. "No. I have a bad heart. My father died young from a heart attack, and so did my father's father. If I'm lucky, I have maybe 30 more years. It'll take at least a hundred years for us to get to Singularity."<br>
+                    "Then I'll be dead before it happens, too. Good," she said.<br>
+                    He chuckled. "No. You'll live long enough, so that they'll figure out how to make you live long enough so that you can live longer."<br>
+                    "You're still only 7 years older than I am."<br>
+                    "Ah, but you have your mother's genes. She looks very young."<br>
+                    She smiled, and changed the subject. "I'll have to tell her you said that. She'll like it."<br>
+                    There was a long pause. Then she confessed, "My grandfather is 92, and he still cuts the grass every week."<br>
+                    Jack smiled triumphantly. "See?"<br>
+                    She was adamant. "I'll live to be 80 or 90. I don't want to live longer than that."<br>
+                    "Not if you're crippled, of course not. But they'll find ways of rejuvenating you." He laughed knowingly. "You'll look older when you're 60 than when you're 120" he said.<br>
+                    She just shook her head.<br>
+                    Another time, as they walked in the sun along the beach of Fox Island, he told her more about the future. "You'll have a headband." He ran his fingers across his forehead; he squinted as the wind blew sand in his eyes. "It'll allow you to talk right to your computer."<br>
+                    She frowned. "I don't want to talk to a computer."<br>
+                    "Sure you do. At least, you will. Your computer will watch your baby all night long. If it sees something wrong, it'll wake you." Wicked delight widened his smile, and she knew he would now tell her something outrageous. "While you're laying in bed with your eyes closed, you'll look at your baby through your computer's TV camera to see if it's something serious."<br>
+                    "Ugh."<br>
+                    "Of course, there's a tiny chance, really tiny, that an accident could scramble your memories."<br>
+                    The thought made her dizzy with horror. "I would rather die." She grabbed his arm and pulled him under the bridge, out of the wind. She shuddered, though unsure whether her chill came from the wind or the fear.<br>
+                    He changed his tack. Pointing at a scattering of elaborate seaside mansions across the water, he asked, "Would you like to live in one of those?"<br>
+                    She studied them. "Maybe that one," she said, pointing at a beautiful old Victorian home. "Or that one." She pointed at another, very different from the first, a series of diagonal slashes with huge windows.<br>
+                    "Have you ever heard of nanotechnology?" he asked.<br>
+                    "Uh-uh."<br>
+                    "Well, with nanotechnology they'll build these tiny little machines--machines the size of molecules." He pointed at the drink in her hand. "They'll put a billion of them in a spaceship the size of a Coke can, and shoot it off to an asteroid. The Coke can will rebuild the asteroid into mansions and palaces. You'll have an asteroid all to your self, if you want one."<br>
+                    "I don't want an asteroid. I don't want to go into space."<br>
+                    He shook his head. "Don't you want to see Mars? You liked the Grand Canyon; I remember how you told me about it. Mars has huge gorges--they make the Grand Canyon look tiny. Don't you want to see them? Don't you want to hike across them?"<br>
+                    It took her a long time to reply. "I guess so," she admitted.<br>
+                    "I won't tell you all the things I expect to happen," he smiled mischievously, "I'm afraid I'd really scare you. But you'll see it all. And you'll remember that I told you." His voice grew intense. "And you'll remember that I knew you'd remember."<br>
+                    She shook her head. Sometimes Jack was just silly.<br>
+                    They never made love, though often, they fell asleep in each other's arms. Sometimes she wondered why; she wondered if he also wondered why. Somehow it just didn't seem important.<br>
+                    He seemed so at home in the deep forest, he so clearly belonged on the Mountain, she first thought they might stay together forever. But one day she went with him to his office. She watched as he worked with computers, as he worked with other people. He was as natural a part of their computer world as he was a part of her Mountain world.<br>
+                    Working in that alien world, he was a different person. In the woods, he was a calm source of sustaining strength. Here, he was a feverish instructor. His heart belonged to the forest, but his mind, she realized, belonged to the machines that would build his vision.<br>
+                    One day he received a call. A distant company gave him an offer he could not refuse. So he went to California, to build great computers, to hurry his vision to fruition.<br>
+                    She stayed by the Mountain. She walked the snows, and watched the birds fly overhead. Yet no bird flew so high that she could not climb the slopes of Rainier until she stood above them.<br>                    
+                    He would come to visit on weekends sometimes, and they would backpack, or ski cross country. But his visits became less frequent. He would write instead. That too decreased in regularity. One letter was the last, though neither of them knew it at the time.<br>                    
+                    A year passed. And by then, it just didn't seem to matter.<br>
+
+
+THE EGG
                     You were on your way home when you died.<br>
                     It was a car accident. Nothing particularly remarkable, but fatal nonetheless. You left behind a wife and two children. It was a painless death. The EMTs tried their best to save you, but to no avail. Your body was so utterly shattered you were better off, trust me.<br>
                     And that’s when you met me.<br>
@@ -127,150 +364,4 @@
                     “So the whole universe,” you said, “it’s just…”<br>
                     “An egg.” I answered. “Now it’s time for you to move on to your next life.”<br>
                     And I sent you on your way.
-                </h2>
-            </div>
-            <div class="gentleseduction">
-                <h3>The Gentle Seduction</h3>
-                <h4>Marc Stiegler</h4>
-                <h2>
-                    He worked with computers; she worked with trees, and the flowers that took hold on the sides of the Mountain.<br>
-                    She was surprised that he was interested in her. He was so smart; she was so ... normal. But he was interesting; he always said something new and different; he was nice.<br>                   
-                    She was 25. He was older, almost 33; sometimes, Jack seemed very old indeed.<br>                    
-                    One day they walked through the mist of a gray day by the Mountain. The forest here on the edge of Rainier glowed in the mist, bright with lush greens. On this day he told her about the future, the future he was building.<br>
-                    Other times when he had spoken of the future, a wild look had entered his eyes. But now his eyes were sharply focused as he talked, as if, this time, he could see it all very clearly. He spoke as if he were describing something as real and obvious as the veins of a leaf hanging down before them on the path.<br>
-                    "Have you ever heard of Singularity?" he asked.<br>
-                    She shook her head. "What's that?"<br>
-                    "Singularity is a time in the future. It'll occur when the rate of change of technology is very great--so great that the effort to keep up with the change will overwhelm us. People will face a whole new set of problems that we can't even imagine." A look of great tranquility smoothed the ridges around his eyes. "On the other hand, all our normal, day to day problems fade away. For example, you'll be immortal."<br>
-                    She shook her head with distaste. "I don't want to live forever," she said.<br>
-                    He smiled, his eyes twinkling. "Of course you do, you just don't know it yet."<br>
-                    She shuddered. "The future scares me."<br>
-                    "There's no reason to fear it. You'll love it." He looked away from her. His next words were bitter, but his tone was resigned. "It pisses me off that you'll live to see it and I won't."<br>
-                    Speaking to the sorrow in his voice, she tried to cheer him. "You'll live to see it too," she replied.<br>
-                    He shook his head. "No. I have a bad heart. My father died young from a heart attack, and so did my father's father. If I'm lucky, I have maybe 30 more years. It'll take at least a hundred years for us to get to Singularity."<br>
-                    "Then I'll be dead before it happens, too. Good," she said.<br>
-                    He chuckled. "No. You'll live long enough, so that they'll figure out how to make you live long enough so that you can live longer."<br>
-                    "You're still only 7 years older than I am."<br>
-                    "Ah, but you have your mother's genes. She looks very young."<br>
-                    She smiled, and changed the subject. "I'll have to tell her you said that. She'll like it."<br>
-                    There was a long pause. Then she confessed, "My grandfather is 92, and he still cuts the grass every week."<br>
-                    Jack smiled triumphantly. "See?"<br>
-                    She was adamant. "I'll live to be 80 or 90. I don't want to live longer than that."<br>
-                    "Not if you're crippled, of course not. But they'll find ways of rejuvenating you." He laughed knowingly. "You'll look older when you're 60 than when you're 120" he said.<br>
-                    She just shook her head.<br>
-                    Another time, as they walked in the sun along the beach of Fox Island, he told her more about the future. "You'll have a headband." He ran his fingers across his forehead; he squinted as the wind blew sand in his eyes. "It'll allow you to talk right to your computer."<br>
-                    She frowned. "I don't want to talk to a computer."<br>
-                    "Sure you do. At least, you will. Your computer will watch your baby all night long. If it sees something wrong, it'll wake you." Wicked delight widened his smile, and she knew he would now tell her something outrageous. "While you're laying in bed with your eyes closed, you'll look at your baby through your computer's TV camera to see if it's something serious."<br>
-                    "Ugh."<br>
-                    "Of course, there's a tiny chance, really tiny, that an accident could scramble your memories."<br>
-                    The thought made her dizzy with horror. "I would rather die." She grabbed his arm and pulled him under the bridge, out of the wind. She shuddered, though unsure whether her chill came from the wind or the fear.<br>
-                    He changed his tack. Pointing at a scattering of elaborate seaside mansions across the water, he asked, "Would you like to live in one of those?"<br>
-                    She studied them. "Maybe that one," she said, pointing at a beautiful old Victorian home. "Or that one." She pointed at another, very different from the first, a series of diagonal slashes with huge windows.<br>
-                    "Have you ever heard of nanotechnology?" he asked.<br>
-                    "Uh-uh."<br>
-                    "Well, with nanotechnology they'll build these tiny little machines--machines the size of molecules." He pointed at the drink in her hand. "They'll put a billion of them in a spaceship the size of a Coke can, and shoot it off to an asteroid. The Coke can will rebuild the asteroid into mansions and palaces. You'll have an asteroid all to your self, if you want one."<br>
-                    "I don't want an asteroid. I don't want to go into space."<br>
-                    He shook his head. "Don't you want to see Mars?You liked the Grand Canyon; I remember how you told me about it. Mars has huge gorges--they make the Grand Canyon look tiny. Don't you want to see them? Don't you want to hike across them?"<br>
-                    It took her a long time to reply. "I guess so," she admitted.<br>
-                    "I won't tell you all the things I expect to happen," he smiled mischievously, "I'm afraid I'd really scare you. But you'll see it all. And you'll remember that I told you." His voice grew intense. "And you'll remember that I knew you'd remember."<br>
-                    She shook her head. Sometimes Jack was just silly.<br>
-                    They never made love, though often, they fell asleep in each other's arms. Sometimes she wondered why; she wondered if he also wondered why. Somehow it just didn't seem important.<br>
-                    He seemed so at home in the deep forest, he so clearly belonged on the Mountain, she first thought they might stay together forever. But one day she went with him to his office. She watched as he worked with computers, as he worked with other people. He was as natural a part of their computer world as he was a part of her Mountain world.<br>
-                    Working in that alien world, he was a different person. In the woods, he was a calm source of sustaining strength. Here, he was a feverish instructor. His heart belonged to the forest, but his mind, she realized, belonged to the machines that would build his vision.<br>
-                    One day he received a call. A distant company gave him an offer he could not refuse. So he went to California, to build great computers, to hurry his vision to fruition.<br>
-                    She stayed by the Mountain. She walked the snows, and watched the birds fly overhead. Yet no bird flew so high that she could not climb the slopes of Rainier until she stood above them.<br>                    
-                    He would come to visit on weekends sometimes, and they would backpack, or ski cross country. But his visits became less frequent. He would write instead. That too decreased in regularity. One letter was the last, though neither of them knew it at the time.<br>                    
-                    A year passed. And by then, it just didn't seem to matter.<br>
-                </h2>
-            </div>
-            <div class="wildgeese">
-                <h3>Wild Geese</h3>
-                <h4>Mary Oliver</h4>
-                <h2>
-                    You do not have to be good.<br>
-                    You do not have to walk on your knees for a hundred miles through the desert repenting.<br>
-                    You only have to let the soft animal of your body love what it loves.<br>
-                    Tell me about despair, yours, and I will tell you mine.<br>
-                    Meanwhile the world goes on.<br>
-                    Meanwhile the sun and the clear pebbles of the rain are moving across the landscapes, over the prairies and the deep trees, the mountains and the rivers.<br>
-                    Meanwhile the wild geese, high in the clean blue air, are heading home again.<br>
-                    Whoever you are, no matter how lonely, the world offers itself to your imagination, calls to you like the wild geese, harsh and exciting -<br>
-                    over and over announcing your place in the family of things.
-                </h2>
-            </div>
-            <div class="invitation">
-                <h3>The Invitation</h3>
-                <h4>Oriah Mountain Dreamer</h4>
-                <h2>
-                    It doesn’t interest me what you do for a living. I want to know what you ache for and if you dare to dream of meeting your heart’s longing.<br>
-                    It doesn’t interest me how old you are. I want to know if you will risk looking like a fool for love, for your dream, for the adventure of being alive.<br>
-                    It doesn’t interest me what planets are squaring your moon.<br>
-                    I want to know if you have touched the centre of your own sorrow, if you have been opened by life’s betrayals or have become shrivelled and closed from fear of further pain.<br>
-                    I want to know if you can sit with pain, mine or your own, without moving to hide it, or fade it, or fix it.<br>
-                    I want to know if you can be with joy, mine or your own; if you can dance with wildness and let the ecstasy fill you to the tips of your fingers and toes without cautioning us to be careful, be realistic, remember the limitations of being human.<br>
-                    It doesn’t interest me if the story you are telling me is true.<br>
-                    I want to know if you can disappoint another to be true to yourself. If you can bear the accusation of betrayal and not betray your own soul.<br>
-                    If you can be faithless and therefore trustworthy.<br>
-                    I want to know if you can see Beauty even when it is not pretty every day. And if you can source your own life from its presence.<br>
-                    I want to know if you can live with failure, yours and mine, and still stand at the edge of the lake and shout to the silver of the full moon, ‘Yes.’<br>
-                    It doesn’t interest me to know where you live or how much money you have.<br>
-                    I want to know if you can get up after the night of grief and despair, weary and bruised to the bone and do what needs to be done to feed the children.<br>
-                    It doesn’t interest me who you know or how you came to be here.<br>
-                    I want to know if you will stand in the centre of the fire with me and not shrink back.<br>
-                    It doesn’t interest me where or what or with whom you have studied.<br>
-                    I want to know what sustains you from the inside when all else falls away.<br>
-                    I want to know if you can be alone with yourself and if you truly like the company you keep in the empty moments.<br>
-                </h2>
-            </div>
-        </div>
-        <!--
-            Kosmos by Walt Whitman
-        -->
-        </div>
-
-        <audio id="audioPlayer" autoplay preload="auto"></audio>
-
-        <script>
-            const musicFiles = [
-                { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3"},
-                { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
-                { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
-                { title: "Disillusionment For The Emotional Type / You'll Never Get To Heaven", src: "music/DisillusionmentForTheEmotionalType_YoullNeverGetToHeaven.mp3" },
-                { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
-                { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
-                { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
-                { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" },
-                { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3"},
-            ];
-        
-            const audioPlayer = document.getElementById('audioPlayer');
-            const songTitleElement = document.getElementById('songTitle');
-            const coordinatesElement = document.getElementById('coordinates');
-            let currentTrack = 0;
-        
-            function playNextTrack() {
-                audioPlayer.src = musicFiles[currentTrack].src;
-        
-                audioPlayer.onplay = function() {
-                    songTitleElement.textContent = musicFiles[currentTrack].title;
-                };
-        
-                audioPlayer.play();
-        
-                currentTrack = (currentTrack + 1) % musicFiles.length;
-            }
-        
-            audioPlayer.addEventListener('ended', playNextTrack);
-        
-            playNextTrack();
-        
-            document.addEventListener('mousemove', function(event) {
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
-        
-                coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
-            });
-        </script>
-
-
-    </body>
-</html>
+ -->
