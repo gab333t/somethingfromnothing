@@ -38,8 +38,8 @@ h1 {
     font-size: 60px;
     filter: blur(1px);
     margin-left: 30px;
-    line-height: 58px;
-    letter-spacing: -1.3px;
+    line-height: 60px;
+    letter-spacing: -1.5px;
 }
 
 h2 {
@@ -50,13 +50,21 @@ h2 {
     letter-spacing: 0.5px;
 }
 
+.reading-text {
+    font-size: 16px;
+    line-height: 24px;
+    width: 555px;
+    letter-spacing: 0.6px;
+    filter: blur(0.2px);
+}
+
 h3 {
     font-family: "Libre Caslon Display", serif;
     font-weight: 100;
     font-style: normal;
     font-size: 50px;
     color: #ECB8EA;
-    filter: blur(0.6px);
+    filter: blur(0.3px);
     letter-spacing: -0.8px;
 }
 
@@ -98,7 +106,7 @@ h4 {
 }
 
 .bold {
-    font-weight: 650;
+    font-weight: 610;
     letter-spacing: 0px;
 }
 
@@ -151,7 +159,10 @@ body.blur .button {
 
 @media screen and (max-width: 525px) {
     h1 {
-        font-size: 44px;
+        font-size: 46px;
+        line-height: 46px;
+        letter-spacing: -0.6px;
+        filter: blur(0.8px);
     }
     .center {
         margin-top: -150px;
@@ -167,7 +178,7 @@ body.blur .button {
         text-align: left;
         right: 0;
         left: 35px;
-        top: 120px;
+        top: 125px;
     }
     .music {
         text-align: left;
