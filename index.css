@@ -1,8 +1,21 @@
 body {
     background-color: #671352;
     color: #ECB8EA;
+    font-family: 'IBM Plex Sans JP', sans-serif;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    visibility: hidden; 
     transition: filter 0.3s ease;
+}
+
+h1 {
+    visibility: visible;
+
+}
+
+.center, .circle, .smallcircle, .button, .music, .coord, .about-text, .option-text, .poem-text {
+    visibility: hidden;
 }
 
 .center {

@@ -40,7 +40,12 @@
         <div class="about-text">
             <h3>About</h3>
             <h2 class="reading-text">
-                In this overwhelmingly complex hierarchy that we call the universe, we may find ourselves not knowing our place in it.<br><br>
+                In this overwhelmingly complex hierarchy that we call the universe, we may find ourselves not knowing our place in it.<br>
+                <br>
+                In the vastness of space, our impact is smaller than a grain of sand in a desert.<br>
+                What is our purpose here on planet Earth?<br>
+                What are we meant to achieve in the short time we have?<br>
+                <br>
                 The selected works are a moment of self-reflection, to think of your own belonging in this world; what it is you wish to accomplish.<br><br>
             </h2>
             <button class="bold backBtn">back</button>
@@ -121,15 +126,20 @@
 
         <script>
             const musicFiles = [
+                { title: "(forever?????????) / glass beach", src: "music/(forever?????????)_glassbeach.mp3" },
                 { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
+                { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
                 { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
                 { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
+                { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
                 { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
+                { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
                 { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
+                { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
                 { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
-                { title: "The Secret Garden / µ-Ziq, Mrs Jynx", src: "music/TheSecretGarden_µ-ZiqMrsJynx.mp3" },
                 { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
                 { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
+                { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
                 { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
             ];
 
@@ -145,6 +155,7 @@
             const songTitleElement = document.getElementById('songTitle');
             const coordinatesElement = document.getElementById('coordinates');
             let currentTrack = 0;
+            let musicStarted = false;
 
             function playNextTrack() {
                 audioPlayer.src = musicFiles[currentTrack].src;
@@ -155,8 +166,18 @@
 
             audioPlayer.addEventListener('ended', playNextTrack);
 
-            audioPlayer.muted = false;
-            playNextTrack();
+            document.addEventListener('click', () => {
+                if (!musicStarted) {
+                    musicStarted = true;
+                    playNextTrack();
+                    audioPlayer.muted = false;
+                }
+
+                document.body.style.visibility = 'visible';
+                document.querySelectorAll('.center, .circle, .smallcircle, .button, .music, .coord, .about-text, .option-text, .poem-text').forEach(el => {
+                    el.style.visibility = 'visible';
+                });
+            });
 
             document.addEventListener('mousemove', function(event) {
                 const mouseX = event.clientX;
@@ -204,9 +225,11 @@
                     enableButtons();
                 });
             });
+
         </script>
     </body>
 </html>
+
 
 
 
