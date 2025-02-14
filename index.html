@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     </head>
     <body>
-        
+
         <h1>Particle<br>in Time</h1>
         <h2 class="intro-message reading-text">click to begin.<br>for optimal experience, have your volume turned up.</h2>
 
@@ -150,19 +150,15 @@
                     audioPlayer.muted = false;
                 }
 
-                // Add class to circle for transition
                 document.querySelector('.circle').classList.add('clicked');
 
-                // Make elements visible and fade them in
                 document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
                     el.style.visibility = 'visible';
-                    // Small delay before adding opacity
                     setTimeout(() => {
                         el.classList.add('visible');
                     }, 50);
                 });
 
-                // Fade out intro message
                 const introMessage = document.querySelector('.intro-message');
                 introMessage.style.opacity = '0';
                 setTimeout(() => {
@@ -209,7 +205,6 @@
                     enableButtons();
                 });
             });
-
         </script>
     </body>
 </html>
