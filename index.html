@@ -13,8 +13,9 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     </head>
     <body>
-
+        
         <h1>Particle<br>in Time</h1>
+        <h2 class="intro-message reading-text">click to begin.<br>for optimal experience, have your volume turned up.</h2>
 
         <div class="center">
             <div class="circle"></div>
@@ -91,37 +92,6 @@
             <button class="bold backBtn">back</button>
         </div>
 
-        <div class="poem-text">
-            <div class="theegg">
-                <h3>The Egg</h3>
-                <h4>Andy Weir</h4>
-                <h2 class="reading-text">
-                    PLACEHOLDER
-                </h2>
-            </div>
-            <div class="gentleseduction">
-                <h3>The Gentle Seduction</h3>
-                <h4>Marc Stiegler</h4>
-                <h2 class="reading-text">
-                    PLACEHOLDER
-                </h2>
-            </div>
-            <div class="wildgeese">
-                <h3>Wild Geese</h3>
-                <h4>Mary Oliver</h4>
-                <h2 class="reading-text">
-                    PLACEHOLDER
-                </h2>
-            </div>
-            <div class="invitation">
-                <h3>The Invitation</h3>
-                <h4>Oriah Mountain Dreamer</h4>
-                <h2 class="reading-text">
-                    PLACEHOLDER
-                </h2>
-            </div>
-        </div>
-
         <audio id="audioPlayer" preload="auto"></audio>
 
         <script>
@@ -154,6 +124,13 @@
             const audioPlayer = document.getElementById('audioPlayer');
             const songTitleElement = document.getElementById('songTitle');
             const coordinatesElement = document.getElementById('coordinates');
+            const optionsBtn = document.getElementById('optionsButton');
+            const aboutBtn = document.getElementById('aboutButton');
+            const optionText = document.querySelector('.option-text');
+            const aboutText = document.querySelector('.about-text');
+            const backBtns = document.querySelectorAll('.backBtn');
+            const body = document.body;
+
             let currentTrack = 0;
             let musicStarted = false;
 
@@ -173,10 +150,24 @@
                     audioPlayer.muted = false;
                 }
 
-                document.body.style.visibility = 'visible';
-                document.querySelectorAll('.center, .circle, .smallcircle, .button, .music, .coord, .about-text, .option-text, .poem-text').forEach(el => {
+                // Add class to circle for transition
+                document.querySelector('.circle').classList.add('clicked');
+
+                // Make elements visible and fade them in
+                document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
                     el.style.visibility = 'visible';
+                    // Small delay before adding opacity
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, 50);
                 });
+
+                // Fade out intro message
+                const introMessage = document.querySelector('.intro-message');
+                introMessage.style.opacity = '0';
+                setTimeout(() => {
+                    introMessage.style.display = 'none';
+                }, 1000);
             });
 
             document.addEventListener('mousemove', function(event) {
@@ -185,13 +176,6 @@
 
                 coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
             });
-
-            const optionsBtn = document.getElementById('optionsButton');
-            const aboutBtn = document.getElementById('aboutButton');
-            const optionText = document.querySelector('.option-text');
-            const aboutText = document.querySelector('.about-text');
-            const backBtns = document.querySelectorAll('.backBtn');
-            const body = document.body;
 
             function disableButtons() {
                 optionsBtn.classList.add('disabled');
@@ -206,22 +190,22 @@
             optionsBtn.addEventListener('click', () => {
                 if (optionsBtn.classList.contains('disabled')) return;
                 body.classList.add('blur');
-                optionText.style.display = 'block';
+                optionText.classList.add('show');
                 disableButtons();
             });
 
             aboutBtn.addEventListener('click', () => {
                 if (aboutBtn.classList.contains('disabled')) return;
                 body.classList.add('blur');
-                aboutText.style.display = 'block';
+                aboutText.classList.add('show');
                 disableButtons();
             });
 
             backBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     body.classList.remove('blur');
-                    optionText.style.display = 'none';
-                    aboutText.style.display = 'none';
+                    optionText.classList.remove('show');
+                    aboutText.classList.remove('show');
                     enableButtons();
                 });
             });
