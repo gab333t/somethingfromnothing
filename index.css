@@ -36,7 +36,7 @@ h1 {
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
     animation-delay: 1.25s;
-    transition: opacity 1s ease;
+    transition: opacity 1s ease; /* Ensure transition is properly set */
     visibility: visible;
 }
 

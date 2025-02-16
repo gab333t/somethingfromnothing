@@ -95,116 +95,125 @@
         <audio id="audioPlayer" preload="auto"></audio>
 
         <script>
-            const musicFiles = [
-                { title: "(forever?????????) / glass beach", src: "music/(forever?????????)_glassbeach.mp3" },
-                { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
-                { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
-                { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
-                { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
-                { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
-                { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
-                { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
-                { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
-                { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
-                { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
-                { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
-                { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
-                { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
-                { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
-            ];
+        const musicFiles = [
+            { title: "(forever?????????) / glass beach", src: "music/(forever?????????)_glassbeach.mp3" },
+            { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
+            { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
+            { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
+            { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
+            { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
+            { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
+            { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
+            { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
+            { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
+            { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
+            { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
+            { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
+            { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
+            { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
+        ];
 
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-            shuffleArray(musicFiles);
+        }
+        shuffleArray(musicFiles);
 
-            const audioPlayer = document.getElementById('audioPlayer');
-            const songTitleElement = document.getElementById('songTitle');
-            const coordinatesElement = document.getElementById('coordinates');
-            const optionsBtn = document.getElementById('optionsButton');
-            const aboutBtn = document.getElementById('aboutButton');
-            const optionText = document.querySelector('.option-text');
-            const aboutText = document.querySelector('.about-text');
-            const backBtns = document.querySelectorAll('.backBtn');
-            const body = document.body;
+        const audioPlayer = document.getElementById('audioPlayer');
+        const songTitleElement = document.getElementById('songTitle');
+        const coordinatesElement = document.getElementById('coordinates');
+        const optionsBtn = document.getElementById('optionsButton');
+        const aboutBtn = document.getElementById('aboutButton');
+        const optionText = document.querySelector('.option-text');
+        const aboutText = document.querySelector('.about-text');
+        const backBtns = document.querySelectorAll('.backBtn');
+        const body = document.body;
 
-            let currentTrack = 0;
-            let musicStarted = false;
+        let currentTrack = 0;
+        let musicStarted = false;
 
-            function playNextTrack() {
-                audioPlayer.src = musicFiles[currentTrack].src;
-                songTitleElement.textContent = musicFiles[currentTrack].title; 
-                audioPlayer.play();
-                currentTrack = (currentTrack + 1) % musicFiles.length;
+        function playNextTrack() {
+            audioPlayer.src = musicFiles[currentTrack].src;
+            songTitleElement.textContent = musicFiles[currentTrack].title; 
+            audioPlayer.play();
+            currentTrack = (currentTrack + 1) % musicFiles.length;
+        }
+
+        audioPlayer.addEventListener('ended', playNextTrack);
+
+        document.addEventListener('click', () => {
+            if (!musicStarted) {
+                musicStarted = true;
+                playNextTrack();
+                audioPlayer.muted = false;
             }
 
-            audioPlayer.addEventListener('ended', playNextTrack);
+            document.querySelector('.circle').classList.add('clicked');
 
-            document.addEventListener('click', () => {
-                if (!musicStarted) {
-                    musicStarted = true;
-                    playNextTrack();
-                    audioPlayer.muted = false;
-                }
-
-                document.querySelector('.circle').classList.add('clicked');
-
-                document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
-                    el.style.visibility = 'visible';
-                    setTimeout(() => {
-                        el.classList.add('visible');
-                    }, 50);
-                });
-
-                const introMessage = document.querySelector('.intro-message');
-                introMessage.style.opacity = '0';
+            document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
+                el.style.visibility = 'visible';
                 setTimeout(() => {
-                    introMessage.style.display = 'none';
-                }, 1000);
+                    el.classList.add('visible');
+                }, 50);
             });
 
-            document.addEventListener('mousemove', function(event) {
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
+            // Smooth fade out for intro message
+            const introMessage = document.querySelector('.intro-message');
+            let opacity = getComputedStyle(introMessage).opacity;
+            const fadeOut = setInterval(() => {
+                if (opacity > 0) {
+                    opacity -= 0.02;  // Much smaller decrements
+                    introMessage.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeOut);
+                    setTimeout(() => {
+                        introMessage.style.display = 'none';
+                    }, 500);
+                }
+            }, 100);  // Longer interval between opacity changes
+        });
 
-                coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+        document.addEventListener('mousemove', function(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+        });
+
+        function disableButtons() {
+            optionsBtn.classList.add('disabled');
+            aboutBtn.classList.add('disabled');
+        }
+
+        function enableButtons() {
+            optionsBtn.classList.remove('disabled');
+            aboutBtn.classList.remove('disabled');
+        }
+
+        optionsBtn.addEventListener('click', () => {
+            if (optionsBtn.classList.contains('disabled')) return;
+            body.classList.add('blur');
+            optionText.classList.add('show');
+            disableButtons();
+        });
+
+        aboutBtn.addEventListener('click', () => {
+            if (aboutBtn.classList.contains('disabled')) return;
+            body.classList.add('blur');
+            aboutText.classList.add('show');
+            disableButtons();
+        });
+
+        backBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                body.classList.remove('blur');
+                optionText.classList.remove('show');
+                aboutText.classList.remove('show');
+                enableButtons();
             });
-
-            function disableButtons() {
-                optionsBtn.classList.add('disabled');
-                aboutBtn.classList.add('disabled');
-            }
-
-            function enableButtons() {
-                optionsBtn.classList.remove('disabled');
-                aboutBtn.classList.remove('disabled');
-            }
-
-            optionsBtn.addEventListener('click', () => {
-                if (optionsBtn.classList.contains('disabled')) return;
-                body.classList.add('blur');
-                optionText.classList.add('show');
-                disableButtons();
-            });
-
-            aboutBtn.addEventListener('click', () => {
-                if (aboutBtn.classList.contains('disabled')) return;
-                body.classList.add('blur');
-                aboutText.classList.add('show');
-                disableButtons();
-            });
-
-            backBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    body.classList.remove('blur');
-                    optionText.classList.remove('show');
-                    aboutText.classList.remove('show');
-                    enableButtons();
-                });
-            });
+        });
         </script>
     </body>
 </html>
