@@ -1,3 +1,4 @@
+<!-- COLOR TEST - UNDO UNTIL THIS COMMENT DISAPPEARS-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,11 +26,11 @@
 
         <div class="button">
             <h2 class="bold" id="aboutButton">about</h2>
-            <h2 class="bold" id="optionsButton">options</h2>
+            <h2 class="bold" id="colorButton">color</h2>
         </div>
 
         <div class="music">
-            <h2 class="bold">now playing</h2>
+            <h2 class="bold" id="playButton">now playing</h2>
             <h2 id="songTitle">reticence.</h2>
         </div>
 
@@ -49,6 +50,9 @@
                 <br>
                 What is our purpose here on planet Earth?<br>
                 What are we meant to achieve in the short time we have?<br>
+                Why were we even given this opportunity?<br>
+                How do we wish to be remembered–<br>
+                if even at all?<br>
                 <br>
                 The selected works are a moment of self-reflection, to think of your own belonging in this world; what it is you wish to accomplish.<br>
             </h2>
@@ -56,50 +60,6 @@
         </div>
 
 
-
-        <div class="option-text">
-            <h3>Options</h3><br>
-
-            <div class="option-item">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <h2>video playback</h2>
-            </div><br>
-
-            <div class="option-item">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <h2>audio playback</h2>
-            </div><br>
-
-            <div class="option-item">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <h2>switching colors</h2>
-            </div><br>
-
-            <div class="option-item">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <h2>alternative text</h2>
-            </div><br>
-
-            <div class="option-item">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-                <h2>blur animation</h2>
-
-            </div><br><br>
 
 
 
@@ -166,28 +126,34 @@
 
         <script>
         const musicFiles = [
-            { title: "(forever?????????) / glass beach", src: "music/forever_glassbeach.mp3" },
-            { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
-            { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
-            { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
-            { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
-            { title: "City Lovers / Harbor Tea Rooms", src: "music/CityLovers_HarborTeaRooms.mp3" },
-            { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
-            { title: "dulcet / Coste", src: "music/dulcet_Coste.mp3" },
-            { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
-            { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
-            { title: "night light / castle hearts", src: "music/nightlight_castlehearts.mp3" },
-            { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
-            { title: "Recording 0004 / Lloyd Vaan", src: "music/Recording0004_LloydVaan.mp3" },
-            { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
-            { title: "see you in heaven / LochHaven", src: "music/seeyouinheaven_LochHaven.mp3" },
-            { title: "Sunday / Hikari", src: "music/Sunday_Hikari.mp3" },
-            { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
-            { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
-            { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
-            { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
-            { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
+            { title: "glass beach – (forever?????????)", src: "music/forever_glassbeach.mp3" },
+            { title: "Chino Yoshio – 193193 (For Gentle Sine Bells)", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
+            { title: "Domenique Dumont – Arrival", src: "music/Arrival_DomeniqueDumont.mp3" },
+            { title: "Harold Budd, Brian Eno – A Stream With Bright Fish", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
+            { title: "Argo Nuff – bannerzszsz", src: "music/bannerzszsz_ArgoNuff.mp3" },
+            { title: "Harbor Tea Rooms – City Lovers", src: "music/CityLovers_HarborTeaRooms.mp3" },
+            { title: "Boards of Canada – Constants Are Changing", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
+            { title: "Coste – dulcet", src: "music/dulcet_Coste.mp3" },
+            { title: "Haruhisa Tanaka – Lakeside", src: "music/Lakeside_HaruhisaTanaka.mp3" },
+            { title: "Omni Gardens – Nectar Grass", src: "music/NectarGrass_OmniGardens.mp3" },
+            { title: "castle hearts – night light", src: "music/nightlight_castlehearts.mp3" },
+            { title: "Chinese Cigarettes – Pro At Crying", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
+            { title: "Lloyd Vaan – Recording 0004", src: "music/Recording0004_LloydVaan.mp3" },
+            { title: "Alvedon – retire (final)", src: "music/retire(final)_Alvedon.mp3" },
+            { title: "LochHaven – see you in heaven", src: "music/seeyouinheaven_LochHaven.mp3" },
+            { title: "Hikari – Sunday", src: "music/Sunday_Hikari.mp3" },
+            { title: "tomcbumpz – tangled", src: "music/tangled_tomcbumpz.mp3" },
+            { title: "Izmi Maruf – The Sound Of Nothingness", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
+            { title: "Orchid Mantis – transatlantic", src: "music/transatlantic_OrchidMantis.mp3" },
+            { title: "monosleep – winter fingertips", src: "music/winterfingertips_monosleep.mp3" },
+            { title: "Nujabes – world without words", src: "music/worldwithoutwords_Nujabes.mp3" }
         ];
+
+        const backgroundColors = ['#671352', '#0C2787', '#4F5136', '#48363D', '#B69CE6', '#136751', '#CF2D29', '#53291F']; 
+        const textColors = ['#FFD8F5', '#FED4E5', '#F3FC75', '#F15C94', '#301266', '#D8FFF5', '#E49432', '#FFAD98'];
+
+        let currentColorIndex = 0;
+        let firstClickDone = false;
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -200,16 +166,28 @@
         const audioPlayer = document.getElementById('audioPlayer');
         const songTitleElement = document.getElementById('songTitle');
         const coordinatesElement = document.getElementById('coordinates');
-        const optionsBtn = document.getElementById('optionsButton');
+        const colorBtn = document.getElementById('colorButton');
         const aboutBtn = document.getElementById('aboutButton');
-        const optionText = document.querySelector('.option-text');
         const aboutText = document.querySelector('.about-text');
         const backBtns = document.querySelectorAll('.backBtn');
         const body = document.body;
+        const nowPlayingText = document.querySelector('.music h2.bold');
 
         let currentTrack = 0;
         let musicStarted = false;
-        let isAudioPaused = true; 
+        let isAudioPaused = false;
+
+        function changeColors() {
+            currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
+            document.body.style.backgroundColor = backgroundColors[currentColorIndex];
+            
+            const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn');
+            elements.forEach(element => {
+                element.style.color = textColors[currentColorIndex];
+            });
+
+            document.querySelector('.circle').style.background = textColors[currentColorIndex];
+        }
 
         function playNextTrack() {
             audioPlayer.src = musicFiles[currentTrack].src;
@@ -218,67 +196,86 @@
             currentTrack = (currentTrack + 1) % musicFiles.length;
         }
 
+        function togglePlayPause() {
+            if (!musicStarted) return;
+            
+            if (isAudioPaused) {
+                audioPlayer.play();
+                isAudioPaused = false;
+                nowPlayingText.textContent = 'now playing';
+                songTitleElement.textContent = musicFiles[(currentTrack - 1 + musicFiles.length) % musicFiles.length].title;
+            } else {
+                audioPlayer.pause();
+                isAudioPaused = true;
+                nowPlayingText.textContent = 'now paused';
+                songTitleElement.textContent = 'reticence.';
+            }
+        }
+
+        function disableButtons() {
+            colorBtn.classList.add('disabled');
+            aboutBtn.classList.add('disabled');
+        }
+
+        function enableButtons() {
+            colorBtn.classList.remove('disabled');
+            aboutBtn.classList.remove('disabled');
+        }
+
+        nowPlayingText.style.cursor = 'pointer';
+        nowPlayingText.addEventListener('click', togglePlayPause);
+
         audioPlayer.addEventListener('ended', playNextTrack);
 
-        document.addEventListener('click', () => {
-            if (!musicStarted) {
+        document.addEventListener('click', (event) => {
+            const isButton = event.target.closest('.button') || 
+                            event.target.closest('.backBtn') || 
+                            event.target.closest('.about-text');
+            
+            const isBlurred = document.body.classList.contains('blur');
+            
+            if (!firstClickDone) {
                 musicStarted = true;
                 playNextTrack();
                 audioPlayer.muted = false;
-            }
-
-            document.querySelector('.circle').classList.add('clicked');
-
-            document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
-                el.style.visibility = 'visible';
-                setTimeout(() => {
-                    el.classList.add('visible');
-                }, 50);
-            });
-
-            const introMessage = document.querySelector('.intro-message');
-            let opacity = getComputedStyle(introMessage).opacity;
-            const fadeOut = setInterval(() => {
-                if (opacity > 0) {
-                    opacity -= 0.02;
-                    introMessage.style.opacity = opacity;
-                } else {
-                    clearInterval(fadeOut);
+                document.querySelector('.circle').classList.add('clicked');
+                
+                document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
+                    el.style.visibility = 'visible';
                     setTimeout(() => {
-                        introMessage.style.display = 'none';
-                    }, 500);
-                }
-            }, 100);
+                        el.classList.add('visible');
+                    }, 50);
+                });
+
+                const introMessage = document.querySelector('.intro-message');
+                let opacity = getComputedStyle(introMessage).opacity;
+                const fadeOut = setInterval(() => {
+                    if (opacity > 0) {
+                        opacity -= 0.02;
+                        introMessage.style.opacity = opacity;
+                    } else {
+                        clearInterval(fadeOut);
+                        setTimeout(() => {
+                            introMessage.style.display = 'none';
+                        }, 500);
+                    }
+                }, 100);
+                
+                firstClickDone = true;
+            }
         });
 
         document.addEventListener('mousemove', function(event) {
             const mouseX = event.clientX;
             const mouseY = event.clientY;
-
+            
             coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
         });
 
-        function disableButtons() {
-            optionsBtn.classList.add('disabled');
-            aboutBtn.classList.add('disabled');
-        }
-
-        function enableButtons() {
-            optionsBtn.classList.remove('disabled');
-            aboutBtn.classList.remove('disabled');
-        }
-
-        optionsBtn.addEventListener('click', () => {
-            if (optionsBtn.classList.contains('disabled')) return;
-            const introMessage = document.querySelector('.intro-message');
-            if (introMessage) {
-                introMessage.style.display = 'none';
-                introMessage.style.visibility = 'hidden';
-                introMessage.style.opacity = '0';
+        colorBtn.addEventListener('click', () => {
+            if (!colorBtn.classList.contains('disabled')) {
+                changeColors();
             }
-            body.classList.add('blur');
-            optionText.classList.add('show');
-            disableButtons();
         });
 
         aboutBtn.addEventListener('click', () => {
@@ -297,35 +294,10 @@
         backBtns.forEach(button => {
             button.addEventListener('click', () => {
                 body.classList.remove('blur');
-                optionText.classList.remove('show');
                 aboutText.classList.remove('show');
                 enableButtons();
             });
         });
-
-        const audioSwitch = document.querySelectorAll('.switch')[1];
-
-        audioSwitch.addEventListener('click', () => {
-            const isChecked = audioSwitch.querySelector('input').checked;
-            if (isChecked) {
-                if (!isAudioPaused) {
-                    audioPlayer.pause();
-                    isAudioPaused = true;
-                    songTitleElement.textContent = 'reticence.'; 
-                }
-            } else {
-                if (isAudioPaused) {
-                    audioPlayer.play();
-                    isAudioPaused = false;
-                    songTitleElement.textContent = musicFiles[currentTrack].title; 
-                }
-            }
-        });
-
-        audioPlayer.play();
-        isAudioPaused = false;
-        audioSwitch.querySelector('input').checked = false;
-        songTitleElement.textContent = musicFiles[currentTrack].title;
         </script>
     </body>
 </html>
