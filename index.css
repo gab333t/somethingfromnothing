@@ -142,7 +142,7 @@ h4 {
     font-family: "IBM Plex Sans JP", serif;
     position: absolute;
     text-align: right;
-    top: 30px;
+    top: 42px;
     right: 35px;
     line-height: 11px;
     filter: blur(0.5px);
@@ -297,7 +297,7 @@ input:checked + .switch {
     filter: blur(0.4px);
 }
 
-@media screen and (max-width: 525px) {
+@media screen and (max-width: 700px) {
     h1 {
         font-size: 46px;
         line-height: 46px;
@@ -348,15 +348,18 @@ input:checked + .switch {
         text-align: left;
         right: 0;
         left: 35px;
-        top: 125px;
+        top: 135px;
+        line-height: 10px;
     }
     .music {
         text-align: left;
         right: 0;
         left: 35px;
+        line-height: 10px;
     }
     .coord {
         bottom: 75px;
+        line-height: 10px;
     }
     body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord {
         filter: blur(6.5px);
