@@ -121,7 +121,7 @@ h3 {
     font-size: 50px;
     color: #ECB8EA;
     filter: blur(0.3px);
-    letter-spacing: -0.8px;
+    letter-spacing: -1.5px;
 }
 
 .cursive {
@@ -155,8 +155,8 @@ h4 {
     cursor: pointer;
 }
 
-#aboutButton:hover, #colorButton:hover, #playButton:hover {
-    filter: blur(1px);
+#aboutButton:hover, #colorButton:hover, #playButton:hover, .backBtn:hover {
+    filter: blur(1.25px);
 }
 
 .music {
@@ -324,7 +324,7 @@ body.blur .button {
         filter: blur(64px);
         opacity: 36%;
     }
-    #aboutButton:hover, #colorButton:hover, #playButton:hover {
+    #aboutButton:hover, #colorButton:hover, #playButton:hover, .backBtn:hover {
         filter: blur(0px);
     }
 }
