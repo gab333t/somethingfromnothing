@@ -32,7 +32,6 @@ h1 {
     width: 100px;
     font-size: 16px;
     line-height: 24px;
-    filter: blur(0.3px);
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
     animation-delay: 1.25s;
@@ -112,10 +111,8 @@ h2 {
     line-height: 24px;
     width: 555px;
     letter-spacing: 0.6px;
-    filter: blur(0.2px);
+    filter: blur(0.3px);
 }
-
-
 
 h3 {
     font-family: "Libre Caslon Text", serif;
@@ -311,11 +308,17 @@ input:checked + .switch {
         margin-top: -150px;
     }
     .circle {
-        width: 280px;
-        height: 280px;
+        width: 310px;
+        height: 310px;
+    }
+    .circle.clicked {
+        filter: blur(34px);
     }
     h2 {
         font-size: 14px;
+    }
+    .bold {
+        font-weight: 750;
     }
     h3 {
         font-size: 38px;
@@ -327,6 +330,16 @@ input:checked + .switch {
     }
     .intro-message, .reading-text {
         font-size: 13px;
+        font-weight: 400;
+        filter: blur(0.2px);
+    }
+    .reading-text {
+        width: 315px;
+        line-height: 19px;
+        letter-spacing: 0.4px;
+    }
+    .intro-message {
+        width: 200px;
     }
     .backBtn {
         font-size: 13px;
@@ -337,12 +350,6 @@ input:checked + .switch {
         left: 35px;
         top: 125px;
     }
-    .reading-text {
-        width: 315px;
-        line-height: 20px;
-        letter-spacing: 0.4px;
-    }
-
     .music {
         text-align: left;
         right: 0;
@@ -350,6 +357,13 @@ input:checked + .switch {
     }
     .coord {
         bottom: 75px;
+    }
+    body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord {
+        filter: blur(6.5px);
+    }
+    body.blur .circle {
+        filter: blur(64px);
+        opacity: 36%;
     }
 }
 
