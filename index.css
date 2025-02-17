@@ -303,6 +303,7 @@ input:checked + .switch {
         line-height: 46px;
         letter-spacing: -0.6px;
         filter: blur(0.6px);
+        margin-left: 28px;
     }
     .center {
         margin-top: -150px;
@@ -315,7 +316,7 @@ input:checked + .switch {
         filter: blur(34px);
     }
     h2 {
-        font-size: 14px;
+        font-size: 13px;
     }
     .bold {
         font-weight: 750;
@@ -323,7 +324,6 @@ input:checked + .switch {
     h3 {
         font-size: 38px;
         letter-spacing: -0.5px;
-
     }
     h4 {
         font-size: 18px;
@@ -347,19 +347,19 @@ input:checked + .switch {
     .button {
         text-align: left;
         right: 0;
-        left: 32px;
+        left: 30px;
         top: 125px;
         line-height: 10px;
     }
     .music {
         text-align: left;
         right: 0;
-        left: 32px;
+        left: 30px;
         bottom: 15px;
         line-height: 10px;
     }
     .coord {
-        left: 32px;
+        left: 30px;
         bottom: 60px;
         line-height: 10px;
     }
