@@ -115,6 +115,8 @@ h2 {
     filter: blur(0.2px);
 }
 
+
+
 h3 {
     font-family: "Libre Caslon Text", serif;
     font-weight: 100;
@@ -125,11 +127,18 @@ h3 {
     letter-spacing: -0.8px;
 }
 
+.cursive {
+    font-style: italic;
+    margin-left: -2px;
+}
+
 h4 {
     font-family: "Libre Caslon Text", serif;
     font-weight: 400;
     font-style: italic;
-    font-size: 30px;
+    font-size: 22px;
+    filter: blur(0.3px);
+    margin-top: -20px;
 }
 
 .button {
@@ -253,7 +262,7 @@ body.blur .button {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ECB8EA;
+    background-color: #671352;
     transition: 0.3s;
     border-radius: 50px;
 }
@@ -267,21 +276,21 @@ body.blur .button {
     top: 3px;
     left: 3px;
     bottom: 4px;
-    background-color: #671352;
+    background-color: #ECB8EA;
     transition: 0.3s;
 }
 
 input:checked + .slider {
-    background-color: #671352;
-}
-
-input:checked + .slider:before {
-    transform: translateX(14.5px);
     background-color: #ECB8EA;
 }
 
+input:checked + .slider:before {
+    transform: translateX(16px);
+    background-color: #671352;
+}
+
 input:checked + .switch {
-    border-color: #ECB8EA;
+    border-color: #671352;
 }
 
 .option-item {
@@ -306,7 +315,21 @@ input:checked + .switch {
         height: 280px;
     }
     h2 {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    h3 {
+        font-size: 38px;
+        letter-spacing: -0.5px;
+
+    }
+    h4 {
+        font-size: 18px;
+    }
+    .intro-message, .reading-text {
+        font-size: 13px;
+    }
+    .backBtn {
+        font-size: 13px;
     }
     .button {
         text-align: left;
@@ -314,6 +337,12 @@ input:checked + .switch {
         left: 35px;
         top: 125px;
     }
+    .reading-text {
+        width: 315px;
+        line-height: 20px;
+        letter-spacing: 0.4px;
+    }
+
     .music {
         text-align: left;
         right: 0;
@@ -322,4 +351,9 @@ input:checked + .switch {
     .coord {
         bottom: 75px;
     }
+}
+
+.excerpt-text {
+    display: none;
+    visibility: hidden;
 }

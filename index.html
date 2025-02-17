@@ -38,22 +38,28 @@
             <h2 id="coordinates">(0.0000, 0.0000)</h2>
         </div>
 
+
+
         <div class="about-text">
             <h3>About</h3>
             <h2 class="reading-text">
                 In this overwhelmingly complex hierarchy that we call the universe, we may find ourselves not knowing our place in it.<br>
                 <br>
-                In the vastness of space, our impact is smaller than a grain of sand in a desert.<br>
+                In the vastness of space, our impact is smaller than a grain of sand in a desert. Often that leads me to question my own existence.<br>
+                <br>
                 What is our purpose here on planet Earth?<br>
                 What are we meant to achieve in the short time we have?<br>
                 <br>
-                The selected works are a moment of self-reflection, to think of your own belonging in this world; what it is you wish to accomplish.<br><br>
+                The selected works are a moment of self-reflection, to think of your own belonging in this world; what it is you wish to accomplish.<br>
             </h2>
             <button class="bold backBtn">back</button>
         </div>
 
+
+
         <div class="option-text">
             <h3>Options</h3><br>
+
             <div class="option-item">
                 <label class="switch">
                     <input type="checkbox">
@@ -61,6 +67,7 @@
                 </label>
                 <h2>video playback</h2>
             </div><br>
+
             <div class="option-item">
                 <label class="switch">
                     <input type="checkbox">
@@ -68,6 +75,7 @@
                 </label>
                 <h2>audio playback</h2>
             </div><br>
+
             <div class="option-item">
                 <label class="switch">
                     <input type="checkbox">
@@ -75,6 +83,7 @@
                 </label>
                 <h2>switching colors</h2>
             </div><br>
+
             <div class="option-item">
                 <label class="switch">
                     <input type="checkbox">
@@ -82,180 +91,241 @@
                 </label>
                 <h2>alternative text</h2>
             </div><br>
+
             <div class="option-item">
                 <label class="switch">
                     <input type="checkbox">
                     <span class="slider"></span>
                 </label>
                 <h2>blur animation</h2>
-            </div><br><br><br>
+
+            </div><br><br>
+
+
+
+            <div class="excerpt-text">
+
+                <div class="theegg">
+                    <h3 class="cursive">The Egg</h3>
+                    <h4>Andy Weir</h4>
+                    <h2 class="reading-text">
+                        PLACEHOLDER
+                    </h2>
+                </div>
+
+                <div class="wildgeese">
+                    <h3 class="cursive">Wild Geese</h3>
+                    <h4>Mary Oliver</h4>
+                    <h2 class="reading-text">
+                        You do not have to be good.<br>
+                        You do not have to walk on your knees for a hundred miles through the desert repenting.<br>
+                        You only have to let the soft animal of your body love what it loves.<br>
+                        Tell me about despair, yours, and I will tell you mine.<br>
+                        Meanwhile the world goes on.<br>
+                        Meanwhile the sun and the clear pebbles of the rain are moving across the landscapes, over the prairies and the deep trees, the mountains and the rivers.<br>
+                        Meanwhile the wild geese, high in the clean blue air, are heading home again.<br>
+                        Whoever you are, no matter how lonely, the world offers itself to your imagination, calls to you like the wild geese, harsh and exciting–<br>
+                        over and over announcing your place in the family of things.
+                    </h2>
+                </div>
+
+                <div class="theinvitation">
+                    <h3 class="cursive">The Invitation</h3>
+                    <h4>Oriah Mountain Dreamer</h4>
+                    <h2 class="reading-text">
+                        It doesn’t interest me what you do for a living. I want to know what you ache for and if you dare to dream of meeting your heart’s longing.<br>
+                        It doesn’t interest me how old you are. I want to know if you will risk looking like a fool for love, for your dream, for the adventure of being alive.<br>
+                        It doesn’t interest me what planets are squaring your moon.<br>
+                        I want to know if you have touched the centre of your own sorrow, if you have been opened by life’s betrayals or have become shrivelled and closed from fear of further pain.<br>
+                        I want to know if you can sit with pain, mine or your own, without moving to hide it, or fade it, or fix it.<br>
+                        I want to know if you can be with joy, mine or your own; if you can dance with wildness and let the ecstasy fill you to the tips of your fingers and toes without cautioning us to be careful, be realistic, remember the limitations of being human.<br>
+                        It doesn’t interest me if the story you are telling me is true.<br>
+                        I want to know if you can disappoint another to be true to yourself. If you can bear the accusation of betrayal and not betray your own soul.<br>
+                        If you can be faithless and therefore trustworthy.<br>
+                        I want to know if you can see Beauty even when it is not pretty every day. And if you can source your own life from its presence.<br>
+                        I want to know if you can live with failure, yours and mine, and still stand at the edge of the lake and shout to the silver of the full moon, ‘Yes.’<br>
+                        It doesn’t interest me to know where you live or how much money you have.<br>
+                        I want to know if you can get up after the night of grief and despair, weary and bruised to the bone and do what needs to be done to feed the children.<br>
+                        It doesn’t interest me who you know or how you came to be here.<br>
+                        I want to know if you will stand in the centre of the fire with me and not shrink back.<br>
+                        It doesn’t interest me where or what or with whom you have studied.<br>
+                        I want to know what sustains you from the inside when all else falls away.<br>
+                        I want to know if you can be alone with yourself and if you truly like the company you keep in the empty moments.<br>
+                        
+                    </h2>
+                </div>
+    
+            </div>
+
+
+
             <button class="bold backBtn">back</button>
         </div>
 
         <audio id="audioPlayer" preload="auto"></audio>
 
         <script>
-const musicFiles = [
-    { title: "(forever?????????) / glass beach", src: "music/(forever?????????)_glassbeach.mp3" },
-    { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
-    { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
-    { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
-    { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
-    { title: "City Lovers / Harbor Tea Rooms", src: "music/CityLovers_HarborTeaRooms.mp3" },
-    { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
-    { title: "dulcet / Coste", src: "music/dulcet_Coste.mp3" },
-    { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
-    { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
-    { title: "night light / castle hearts", src: "music/nightlight_castlehearts.mp3" },
-    { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
-    { title: "Recording 0004 / Lloyd Vaan", src: "music/Recording0004_LloydVaan.mp3" },
-    { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
-    { title: "see you in heaven / LochHaven", src: "music/seeyouinheaven_LochHaven.mp3" },
-    { title: "Sunday / Hikari", src: "music/Sunday_Hikari.mp3" },
-    { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
-    { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
-    { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
-    { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
-    { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
-];
+        const musicFiles = [
+            { title: "(forever?????????) / glass beach", src: "music/forever_glassbeach.mp3" },
+            { title: "193193 (For Gentle Sine Bells) / Chino Yoshio", src: "music/193193ForGentleSineBells_ChinoYoshio.mp3" },
+            { title: "Arrival / Domenique Dumont", src: "music/Arrival_DomeniqueDumont.mp3" },
+            { title: "A Stream With Bright Fish / Harold Budd, Brian Eno", src: "music/AStreamWithBrightFish_HaroldBuddBrianEno.mp3" },
+            { title: "bannerzszsz / Argo Nuff", src: "music/bannerzszsz_ArgoNuff.mp3" },
+            { title: "City Lovers / Harbor Tea Rooms", src: "music/CityLovers_HarborTeaRooms.mp3" },
+            { title: "Constants Are Changing / Boards of Canada", src: "music/ConstantsAreChanging_BoardsofCanada.mp3" },
+            { title: "dulcet / Coste", src: "music/dulcet_Coste.mp3" },
+            { title: "Lakeside / Haruhisa Tanaka", src: "music/Lakeside_HaruhisaTanaka.mp3" },
+            { title: "Nectar Grass / Omni Gardens", src: "music/NectarGrass_OmniGardens.mp3" },
+            { title: "night light / castle hearts", src: "music/nightlight_castlehearts.mp3" },
+            { title: "Pro At Crying / Chinese Cigarettes", src: "music/ProAtCrying_ChineseCigarettes.mp3" },
+            { title: "Recording 0004 / Lloyd Vaan", src: "music/Recording0004_LloydVaan.mp3" },
+            { title: "retire (final) / Alvedon", src: "music/retire(final)_Alvedon.mp3" },
+            { title: "see you in heaven / LochHaven", src: "music/seeyouinheaven_LochHaven.mp3" },
+            { title: "Sunday / Hikari", src: "music/Sunday_Hikari.mp3" },
+            { title: "tangled / tomcbumpz", src: "music/tangled_tomcbumpz.mp3" },
+            { title: "The Sound Of Nothingness / Izmi Maruf", src: "music/TheSoundOfNothingness_IzmiMaruf.mp3" },
+            { title: "transatlantic / Orchid Mantis", src: "music/transatlantic_OrchidMantis.mp3" },
+            { title: "winter fingertips / monosleep", src: "music/winterfingertips_monosleep.mp3" },
+            { title: "world without words / Nujabes", src: "music/worldwithoutwords_Nujabes.mp3" }
+        ];
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-shuffleArray(musicFiles);
-
-const audioPlayer = document.getElementById('audioPlayer');
-const songTitleElement = document.getElementById('songTitle');
-const coordinatesElement = document.getElementById('coordinates');
-const optionsBtn = document.getElementById('optionsButton');
-const aboutBtn = document.getElementById('aboutButton');
-const optionText = document.querySelector('.option-text');
-const aboutText = document.querySelector('.about-text');
-const backBtns = document.querySelectorAll('.backBtn');
-const body = document.body;
-
-let currentTrack = 0;
-let musicStarted = false;
-let isAudioPaused = true; 
-
-function playNextTrack() {
-    audioPlayer.src = musicFiles[currentTrack].src;
-    songTitleElement.textContent = musicFiles[currentTrack].title;
-    audioPlayer.play();
-    currentTrack = (currentTrack + 1) % musicFiles.length;
-}
-
-audioPlayer.addEventListener('ended', playNextTrack);
-
-document.addEventListener('click', () => {
-    if (!musicStarted) {
-        musicStarted = true;
-        playNextTrack();
-        audioPlayer.muted = false;
-    }
-
-    document.querySelector('.circle').classList.add('clicked');
-
-    document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
-        el.style.visibility = 'visible';
-        setTimeout(() => {
-            el.classList.add('visible');
-        }, 50);
-    });
-
-    const introMessage = document.querySelector('.intro-message');
-    let opacity = getComputedStyle(introMessage).opacity;
-    const fadeOut = setInterval(() => {
-        if (opacity > 0) {
-            opacity -= 0.02;
-            introMessage.style.opacity = opacity;
-        } else {
-            clearInterval(fadeOut);
-            setTimeout(() => {
-                introMessage.style.display = 'none';
-            }, 500);
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
-    }, 100);
-});
+        shuffleArray(musicFiles);
 
-document.addEventListener('mousemove', function(event) {
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
+        const audioPlayer = document.getElementById('audioPlayer');
+        const songTitleElement = document.getElementById('songTitle');
+        const coordinatesElement = document.getElementById('coordinates');
+        const optionsBtn = document.getElementById('optionsButton');
+        const aboutBtn = document.getElementById('aboutButton');
+        const optionText = document.querySelector('.option-text');
+        const aboutText = document.querySelector('.about-text');
+        const backBtns = document.querySelectorAll('.backBtn');
+        const body = document.body;
 
-    coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
-});
+        let currentTrack = 0;
+        let musicStarted = false;
+        let isAudioPaused = true; 
 
-function disableButtons() {
-    optionsBtn.classList.add('disabled');
-    aboutBtn.classList.add('disabled');
-}
-
-function enableButtons() {
-    optionsBtn.classList.remove('disabled');
-    aboutBtn.classList.remove('disabled');
-}
-
-optionsBtn.addEventListener('click', () => {
-    if (optionsBtn.classList.contains('disabled')) return;
-    const introMessage = document.querySelector('.intro-message');
-    if (introMessage) {
-        introMessage.style.display = 'none';
-        introMessage.style.visibility = 'hidden';
-        introMessage.style.opacity = '0';
-    }
-    body.classList.add('blur');
-    optionText.classList.add('show');
-    disableButtons();
-});
-
-aboutBtn.addEventListener('click', () => {
-    if (aboutBtn.classList.contains('disabled')) return;
-    const introMessage = document.querySelector('.intro-message');
-    if (introMessage) {
-        introMessage.style.display = 'none';
-        introMessage.style.visibility = 'hidden';
-        introMessage.style.opacity = '0';
-    }
-    body.classList.add('blur');
-    aboutText.classList.add('show');
-    disableButtons();
-});
-
-backBtns.forEach(button => {
-    button.addEventListener('click', () => {
-        body.classList.remove('blur');
-        optionText.classList.remove('show');
-        aboutText.classList.remove('show');
-        enableButtons();
-    });
-});
-
-const audioSwitch = document.querySelectorAll('.switch')[1];
-
-audioSwitch.addEventListener('click', () => {
-    const isChecked = audioSwitch.querySelector('input').checked;
-    if (isChecked) {
-        if (!isAudioPaused) {
-            audioPlayer.pause();
-            isAudioPaused = true;
-            songTitleElement.textContent = 'reticence.'; 
-        }
-    } else {
-        if (isAudioPaused) {
+        function playNextTrack() {
+            audioPlayer.src = musicFiles[currentTrack].src;
+            songTitleElement.textContent = musicFiles[currentTrack].title;
             audioPlayer.play();
-            isAudioPaused = false;
-            songTitleElement.textContent = musicFiles[currentTrack].title; 
+            currentTrack = (currentTrack + 1) % musicFiles.length;
         }
-    }
-});
 
-audioPlayer.play();
-isAudioPaused = false;
-audioSwitch.querySelector('input').checked = false;
-songTitleElement.textContent = musicFiles[currentTrack].title;
+        audioPlayer.addEventListener('ended', playNextTrack);
+
+        document.addEventListener('click', () => {
+            if (!musicStarted) {
+                musicStarted = true;
+                playNextTrack();
+                audioPlayer.muted = false;
+            }
+
+            document.querySelector('.circle').classList.add('clicked');
+
+            document.querySelectorAll('.center, .smallcircle, .button, .music, .coord').forEach(el => {
+                el.style.visibility = 'visible';
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, 50);
+            });
+
+            const introMessage = document.querySelector('.intro-message');
+            let opacity = getComputedStyle(introMessage).opacity;
+            const fadeOut = setInterval(() => {
+                if (opacity > 0) {
+                    opacity -= 0.02;
+                    introMessage.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeOut);
+                    setTimeout(() => {
+                        introMessage.style.display = 'none';
+                    }, 500);
+                }
+            }, 100);
+        });
+
+        document.addEventListener('mousemove', function(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+        });
+
+        function disableButtons() {
+            optionsBtn.classList.add('disabled');
+            aboutBtn.classList.add('disabled');
+        }
+
+        function enableButtons() {
+            optionsBtn.classList.remove('disabled');
+            aboutBtn.classList.remove('disabled');
+        }
+
+        optionsBtn.addEventListener('click', () => {
+            if (optionsBtn.classList.contains('disabled')) return;
+            const introMessage = document.querySelector('.intro-message');
+            if (introMessage) {
+                introMessage.style.display = 'none';
+                introMessage.style.visibility = 'hidden';
+                introMessage.style.opacity = '0';
+            }
+            body.classList.add('blur');
+            optionText.classList.add('show');
+            disableButtons();
+        });
+
+        aboutBtn.addEventListener('click', () => {
+            if (aboutBtn.classList.contains('disabled')) return;
+            const introMessage = document.querySelector('.intro-message');
+            if (introMessage) {
+                introMessage.style.display = 'none';
+                introMessage.style.visibility = 'hidden';
+                introMessage.style.opacity = '0';
+            }
+            body.classList.add('blur');
+            aboutText.classList.add('show');
+            disableButtons();
+        });
+
+        backBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                body.classList.remove('blur');
+                optionText.classList.remove('show');
+                aboutText.classList.remove('show');
+                enableButtons();
+            });
+        });
+
+        const audioSwitch = document.querySelectorAll('.switch')[1];
+
+        audioSwitch.addEventListener('click', () => {
+            const isChecked = audioSwitch.querySelector('input').checked;
+            if (isChecked) {
+                if (!isAudioPaused) {
+                    audioPlayer.pause();
+                    isAudioPaused = true;
+                    songTitleElement.textContent = 'reticence.'; 
+                }
+            } else {
+                if (isAudioPaused) {
+                    audioPlayer.play();
+                    isAudioPaused = false;
+                    songTitleElement.textContent = musicFiles[currentTrack].title; 
+                }
+            }
+        });
+
+        audioPlayer.play();
+        isAudioPaused = false;
+        audioSwitch.querySelector('input').checked = false;
+        songTitleElement.textContent = musicFiles[currentTrack].title;
         </script>
     </body>
 </html>
@@ -267,37 +337,11 @@ songTitleElement.textContent = musicFiles[currentTrack].title;
 
 
 THE INVITATION
-It doesn’t interest me what you do for a living. I want to know what you ache for and if you dare to dream of meeting your heart’s longing.<br>
-It doesn’t interest me how old you are. I want to know if you will risk looking like a fool for love, for your dream, for the adventure of being alive.<br>
-It doesn’t interest me what planets are squaring your moon.<br>
-I want to know if you have touched the centre of your own sorrow, if you have been opened by life’s betrayals or have become shrivelled and closed from fear of further pain.<br>
-I want to know if you can sit with pain, mine or your own, without moving to hide it, or fade it, or fix it.<br>
-I want to know if you can be with joy, mine or your own; if you can dance with wildness and let the ecstasy fill you to the tips of your fingers and toes without cautioning us to be careful, be realistic, remember the limitations of being human.<br>
-It doesn’t interest me if the story you are telling me is true.<br>
-I want to know if you can disappoint another to be true to yourself. If you can bear the accusation of betrayal and not betray your own soul.<br>
-If you can be faithless and therefore trustworthy.<br>
-I want to know if you can see Beauty even when it is not pretty every day. And if you can source your own life from its presence.<br>
-I want to know if you can live with failure, yours and mine, and still stand at the edge of the lake and shout to the silver of the full moon, ‘Yes.’<br>
-It doesn’t interest me to know where you live or how much money you have.<br>
-I want to know if you can get up after the night of grief and despair, weary and bruised to the bone and do what needs to be done to feed the children.<br>
-It doesn’t interest me who you know or how you came to be here.<br>
-I want to know if you will stand in the centre of the fire with me and not shrink back.<br>
-It doesn’t interest me where or what or with whom you have studied.<br>
-I want to know what sustains you from the inside when all else falls away.<br>
-I want to know if you can be alone with yourself and if you truly like the company you keep in the empty moments.<br>
 
 
 
 WILD GEESE
-                    You do not have to be good.<br>
-                    You do not have to walk on your knees for a hundred miles through the desert repenting.<br>
-                    You only have to let the soft animal of your body love what it loves.<br>
-                    Tell me about despair, yours, and I will tell you mine.<br>
-                    Meanwhile the world goes on.<br>
-                    Meanwhile the sun and the clear pebbles of the rain are moving across the landscapes, over the prairies and the deep trees, the mountains and the rivers.<br>
-                    Meanwhile the wild geese, high in the clean blue air, are heading home again.<br>
-                    Whoever you are, no matter how lonely, the world offers itself to your imagination, calls to you like the wild geese, harsh and exciting -<br>
-                    over and over announcing your place in the family of things.
+
 
 
 
