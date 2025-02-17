@@ -302,7 +302,7 @@ input:checked + .switch {
         font-size: 46px;
         line-height: 46px;
         letter-spacing: -0.6px;
-        filter: blur(0.8px);
+        filter: blur(0.6px);
     }
     .center {
         margin-top: -150px;
@@ -331,10 +331,10 @@ input:checked + .switch {
     .intro-message, .reading-text {
         font-size: 13px;
         font-weight: 400;
-        filter: blur(0.2px);
+        filter: blur(0.15px);
     }
     .reading-text {
-        width: 315px;
+        width: 310px;
         line-height: 19px;
         letter-spacing: 0.4px;
     }
@@ -347,18 +347,20 @@ input:checked + .switch {
     .button {
         text-align: left;
         right: 0;
-        left: 35px;
-        top: 135px;
+        left: 32px;
+        top: 125px;
         line-height: 10px;
     }
     .music {
         text-align: left;
         right: 0;
-        left: 35px;
+        left: 32px;
+        bottom: 15px;
         line-height: 10px;
     }
     .coord {
-        bottom: 75px;
+        left: 32px;
+        bottom: 60px;
         line-height: 10px;
     }
     body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord {
