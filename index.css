@@ -81,7 +81,7 @@ h1 {
     height: 630px;
     pointer-events: none;
     transition: transform 0.6s ease;
-    filter: blur(1.5px);
+    filter: blur(2.75px);
 }
 
 .dashed-circle-svg circle {
@@ -338,14 +338,23 @@ body.blur .button {
 .excerpt-text {
     opacity: 0;
     visibility: hidden;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;  
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 20px;
     text-align: left;
     z-index: 1000;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.excerpt-text::-webkit-scrollbar {
+    display: none;
 }
 
 .excerpt-text.show {
@@ -357,7 +366,39 @@ body.blur .button {
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
+    position: relative;
+    min-height: 100vh;
+    padding-top: 36px;
+    max-width: 555px;
+    margin: 0 auto;
 }
+
+.excerpt-text h3 {
+    font-size: 50px;
+    width: 350px;
+    margin-bottom: 6px; 
+    margin-left: 2px; 
+    position: relative;
+    text-align: left;
+    line-height: 1;  
+}
+
+.excerpt-text h4 {
+    margin-top: 0;  
+    position: relative;
+}
+
+.excerpt-text .reading-text {
+    margin-top: 40px;  
+    position: relative;
+}
+
+.excerpt-text .backBtn {
+    position: relative;
+    margin-top: 40px; 
+    z-index: 1001;
+}
+
 
 .excerpt-text > div.active {
     display: block;
@@ -406,6 +447,19 @@ body, body *, .circle, .circle-index {
         border-top: 15px solid transparent;
         border-bottom: 15px solid transparent;
         transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .excerpt-text {
+        padding: 15px;
+    }
+    .excerpt-text > div {
+        padding-top: 150px;
+    }
+    .excerpt-text h3 {
+        font-size: 38px;
+    } 
+    .excerpt-text .backBtn {
+        margin-left: 0; 
+        margin-bottom: 40px; 
     }
     h2 {
         font-size: 14px;

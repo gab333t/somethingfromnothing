@@ -24,7 +24,7 @@
         <div class="center">
             <div class="circle"></div>
             <svg class="dashed-circle-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="300" cy="300" r="300" fill="none" stroke="#ECB8EA" stroke-width="25" 
+                <circle cx="300" cy="300" r="300" fill="none" stroke="#ECB8EA" stroke-width="45" 
                         stroke-dasharray="3 233" opacity="0.75" />
             </svg>
             <div class="circle-index">1</div>
@@ -348,361 +348,139 @@
         ];
 
         const backgroundColors = ['#671352', '#0C2787', '#48363D', '#B69CE6', '#136751', '#CF2D29', '#53291F', '#6D769D']; 
-const textColors = ['#FFD8F5', '#FFEFC1', '#F15C94', '#301266', '#FFE1D8', '#E49432', '#FFAD98', '#1F2333'];
+        const textColors = ['#FFD8F5', '#FFEFC1', '#F15C94', '#301266', '#FFE1D8', '#E49432', '#FFAD98', '#1F2333'];
 
-let currentColorIndex = 0;
-let firstClickDone = false;
-let currentRotation = 0;
+        let currentColorIndex = 0;
+        let firstClickDone = false;
+        let currentRotation = 0;
 
-const circles = [
-    { index: 1, hoverText: "The Egg", className: "theegg" },
-    { index: 2, hoverText: "Wild Geese", className: "wildgeese" },
-    { index: 3, hoverText: "The Invitation", className: "theinvitation" },
-    { index: 4, hoverText: "I Don't Need Anything From Here", className: "leavehere" },
-    { index: 5, hoverText: "Knock", className: "knock" },
-    { index: 6, hoverText: "They're Made Out Of Meat", className: "outofmeat" },
-    { index: 7, hoverText: "I Am!", className: "iam" },
-    { index: 8, hoverText: "Song Of Myself", className: "songofmyself" }
-];
+        const circles = [
+            { index: 1, hoverText: "The Egg", className: "theegg" },
+            { index: 2, hoverText: "Wild Geese", className: "wildgeese" },
+            { index: 3, hoverText: "The Invitation", className: "theinvitation" },
+            { index: 4, hoverText: "I Don't Need Anything From Here", className: "leavehere" },
+            { index: 5, hoverText: "Knock", className: "knock" },
+            { index: 6, hoverText: "They're Made Out Of Meat", className: "outofmeat" },
+            { index: 7, hoverText: "I Am!", className: "iam" },
+            { index: 8, hoverText: "Song Of Myself", className: "songofmyself" }
+        ];
 
-let currentCircleIndex = 0;
-let lastMouseX = 0;
-let lastMouseY = 0;
+        let currentCircleIndex = 0;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-shuffleArray(musicFiles);
-
-const audioPlayer = document.getElementById('audioPlayer');
-const songTitleElement = document.getElementById('songTitle');
-const coordinatesElement = document.getElementById('coordinates');
-const colorBtn = document.getElementById('colorButton');
-const aboutBtn = document.getElementById('aboutButton');
-const aboutText = document.querySelector('.about-text');
-const excerptText = document.querySelector('.excerpt-text');
-const backBtns = document.querySelectorAll('.backBtn');
-const body = document.body;
-const nowPlayingText = document.querySelector('.music h2.bold');
-const circle = document.querySelector('.circle');
-const circleIndex = document.querySelector('.circle-index');
-const triangleLeft = document.querySelector('.triangle-left');
-const triangleRight = document.querySelector('.triangle-right');
-const dashedCircle = document.querySelector('.dashed-circle-svg');
-
-let currentTrack = 0;
-let musicStarted = false;
-let isAudioPaused = false;
-
-function updateCoordinates(mouseX, mouseY) {
-    coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
-}
-
-function updateCircle() {
-    if (window.innerWidth <= 700) {
-        circle.style.width = '310px';
-        circle.style.height = '310px';
-    } else {
-        circle.style.width = '510px';
-        circle.style.height = '510px';
-    }
-    
-    if (document.body.classList.contains('blur')) {
-        circle.style.filter = 'blur(60px)';
-        circle.style.opacity = 0.35;
-    } else {
-        circle.style.filter = 'blur(38px)';
-        circle.style.opacity = 1;
-    }
-}
-
-function nextCircle() {
-    currentCircleIndex = (currentCircleIndex + 1) % circles.length;
-    currentRotation += 45; 
-    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-    updateCircle();
-}
-
-function prevCircle() {
-    currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
-    currentRotation -= 45; 
-    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-    updateCircle();
-}
-
-function changeColors() {
-    currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
-    const newBgColor = backgroundColors[currentColorIndex];
-    const newTextColor = textColors[currentColorIndex];
-    document.body.style.backgroundColor = newBgColor;
-    
-    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
-    elements.forEach(element => {
-        if (element.classList.contains('triangle-left')) {
-            element.style.borderRightColor = newTextColor;
-        } else if (element.classList.contains('triangle-right')) {
-            element.style.borderLeftColor = newTextColor;
-        } else {
-            element.style.color = newTextColor;
-        }
-    });
-
-    document.querySelector('.circle').style.background = newTextColor;
-    document.querySelector('.circle-index').style.color = newBgColor;
-    
-    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
-    dashedCirclePath.style.stroke = newTextColor;
-}
-
-function showExcerpt(className) {
-    // Show the excerpt-text container
-    excerptText.style.display = 'block';
-    excerptText.style.visibility = 'visible';
-    
-    // Hide all excerpts first
-    const allExcerpts = excerptText.querySelectorAll('div');
-    allExcerpts.forEach(div => {
-        div.style.display = 'none';
-        div.style.opacity = '0';
-    });
-    
-    // Show the current excerpt
-    const currentExcerpt = excerptText.querySelector(`.${className}`);
-    if (currentExcerpt) {
-        currentExcerpt.style.display = 'block';
-        // Use setTimeout to ensure the display change has taken effect
-        setTimeout(() => {
-            currentExcerpt.style.opacity = '1';
-            excerptText.style.opacity = '1';
-        }, 50);
-    }
-    
-    // Apply blur effect
-    body.classList.add('blur');
-    
-    // Swap colors
-    const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
-    const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
-    
-    document.body.style.backgroundColor = currentTextColor;
-    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
-    elements.forEach(element => {
-        if (element.classList.contains('triangle-left')) {
-            element.style.borderRightColor = currentBgColor;
-        } else if (element.classList.contains('triangle-right')) {
-            element.style.borderLeftColor = currentBgColor;
-        } else {
-            element.style.color = currentBgColor;
-        }
-    });
-
-    document.querySelector('.circle').style.background = currentBgColor;
-    document.querySelector('.circle-index').style.color = currentTextColor;
-    
-    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
-    dashedCirclePath.style.stroke = currentBgColor;
-    
-    disableButtons();
-    updateCircle();
-}
-
-function playNextTrack() {
-    audioPlayer.src = musicFiles[currentTrack].src;
-    songTitleElement.textContent = musicFiles[currentTrack].title;
-    audioPlayer.play();
-    currentTrack = (currentTrack + 1) % musicFiles.length;
-}
-
-function togglePlayPause() {
-    if (!musicStarted) return;
-    
-    if (isAudioPaused) {
-        audioPlayer.play();
-        isAudioPaused = false;
-        nowPlayingText.textContent = 'now playing';
-        songTitleElement.textContent = musicFiles[(currentTrack - 1 + musicFiles.length) % musicFiles.length].title;
-    } else {
-        audioPlayer.pause();
-        isAudioPaused = true;
-        nowPlayingText.textContent = 'now paused';
-        songTitleElement.textContent = '(reticence)';
-    }
-}
-
-function disableButtons() {
-    colorBtn.classList.add('disabled');
-    aboutBtn.classList.add('disabled');
-    triangleLeft.classList.add('disabled');
-    triangleRight.classList.add('disabled');
-    nowPlayingText.classList.add('disabled');
-}
-
-function enableButtons() {
-    colorBtn.classList.remove('disabled');
-    aboutBtn.classList.remove('disabled');
-    triangleLeft.classList.remove('disabled');
-    triangleRight.classList.remove('disabled');
-    nowPlayingText.classList.remove('disabled');
-}
-
-function hideIntroMessageInstantly() {
-    const introMessage = document.querySelector('.intro-message');
-    if (introMessage) {
-        introMessage.style.display = 'none';
-        introMessage.style.visibility = 'hidden';
-        introMessage.style.opacity = '0';
-        
-        const fadeIntervals = window.fadeOutIntervals || [];
-        fadeIntervals.forEach(interval => clearInterval(interval));
-    }
-}
-
-circleIndex.style.display = 'none';
-
-circle.addEventListener('mouseenter', () => {
-    if (firstClickDone) {
-        circleIndex.style.display = 'block';
-        circleIndex.textContent = circles[currentCircleIndex].hoverText;
-    }
-});
-
-circle.addEventListener('mouseleave', () => {
-    circleIndex.style.display = 'none';
-});
-
-circle.addEventListener('mousemove', (e) => {
-    if (firstClickDone) {
-        circleIndex.style.left = `${e.clientX}px`;
-        circleIndex.style.top = `${e.clientY}px`;
-    }
-});
-
-circle.addEventListener('click', (event) => {
-    hideIntroMessageInstantly();
-    
-    if (!firstClickDone) return;
-    
-    event.stopPropagation();
-    showExcerpt(circles[currentCircleIndex].className);
-});
-
-triangleLeft.addEventListener('click', () => {
-    hideIntroMessageInstantly();
-    if (firstClickDone && !triangleLeft.classList.contains('disabled')) {
-        const centerElement = document.querySelector('.center');
-        centerElement.style.opacity = '0.6';
-        centerElement.style.filter = 'blur(5px)';
-        setTimeout(() => {
-            centerElement.style.opacity = '1';
-            centerElement.style.filter = 'none';
-        }, 300);
-        prevCircle();
-    }
-});
-
-triangleRight.addEventListener('click', () => {
-    hideIntroMessageInstantly();
-    if (firstClickDone && !triangleRight.classList.contains('disabled')) {
-        const centerElement = document.querySelector('.center');
-        centerElement.style.opacity = '0.6';
-        centerElement.style.filter = 'blur(5px)';
-        setTimeout(() => {
-            centerElement.style.opacity = '1';
-            centerElement.style.filter = 'none';
-        }, 300);
-        nextCircle();
-    }
-});
-
-nowPlayingText.style.cursor = 'pointer';
-nowPlayingText.addEventListener('click', togglePlayPause);
-
-audioPlayer.addEventListener('ended', playNextTrack);
-
-document.addEventListener('mousemove', function(event) {
-    lastMouseX = event.clientX;
-    lastMouseY = event.clientY;
-    updateCoordinates(lastMouseX, lastMouseY);
-});
-
-document.addEventListener('click', (event) => {
-    const isButton = event.target.closest('.button') || 
-                    event.target.closest('.backBtn') || 
-                    event.target.closest('.triangle-left') ||
-                    event.target.closest('.triangle-right') ||
-                    event.target.closest('.about-text') ||
-                    event.target.closest('.excerpt-text');
-    
-    if (!firstClickDone) {
-        musicStarted = true;
-        playNextTrack();
-        audioPlayer.muted = false;
-        const circleElement = document.querySelector('.circle');
-        circleElement.classList.add('clicked');
-        circleElement.style.pointerEvents = 'auto';
-        circleElement.style.cursor = 'pointer';
-        
-        document.querySelectorAll('.center, .smallcircle, .button, .music, .coord, .triangle-container').forEach(el => {
-            el.style.visibility = 'visible';
-            setTimeout(() => {
-                el.classList.add('visible');
-            }, 50);
-        });
-
-        const introMessage = document.querySelector('.intro-message');
-        let opacity = getComputedStyle(introMessage).opacity;
-        const fadeOut = setInterval(() => {
-            if (opacity > 0) {
-                opacity -= 0.02;
-                introMessage.style.opacity = opacity;
-            } else {
-                clearInterval(fadeOut);
-                setTimeout(() => {
-                    introMessage.style.display = 'none';
-                }, 500);
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-        }, 100);
-        
-        window.fadeOutIntervals = window.fadeOutIntervals || [];
-        window.fadeOutIntervals.push(fadeOut);
-        
-        firstClickDone = true;
-        updateCircle();
-    }
-});
+        }
+        shuffleArray(musicFiles);
 
-colorBtn.addEventListener('click', () => {
-    if (!colorBtn.classList.contains('disabled')) {
-        changeColors();
-    }
-});
-
-aboutBtn.addEventListener('click', () => {
-    if (aboutBtn.classList.contains('disabled')) return;
-    hideIntroMessageInstantly();
-    body.classList.add('blur');
-    aboutText.classList.add('show');
-    disableButtons();
-    updateCircle();
-});
-
-backBtns.forEach(button => {
-    button.addEventListener('click', () => {
-        const excerptText = document.querySelector('.excerpt-text');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const songTitleElement = document.getElementById('songTitle');
+        const coordinatesElement = document.getElementById('coordinates');
+        const colorBtn = document.getElementById('colorButton');
+        const aboutBtn = document.getElementById('aboutButton');
         const aboutText = document.querySelector('.about-text');
-        
-        // Check if this back button is in an excerpt or about section
-        const isInExcerpt = button.closest('.excerpt-text') !== null;
-        
-        if (isInExcerpt) {
-            // For excerpt back button, revert color inversion
+        const excerptText = document.querySelector('.excerpt-text');
+        const backBtns = document.querySelectorAll('.backBtn');
+        const body = document.body;
+        const nowPlayingText = document.querySelector('.music h2.bold');
+        const circle = document.querySelector('.circle');
+        const circleIndex = document.querySelector('.circle-index');
+        const triangleLeft = document.querySelector('.triangle-left');
+        const triangleRight = document.querySelector('.triangle-right');
+        const dashedCircle = document.querySelector('.dashed-circle-svg');
+
+        let currentTrack = 0;
+        let musicStarted = false;
+        let isAudioPaused = false;
+
+        function updateCoordinates(mouseX, mouseY) {
+            coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+        }
+
+        function updateCircle() {
+            if (window.innerWidth <= 700) {
+                circle.style.width = '310px';
+                circle.style.height = '310px';
+            } else {
+                circle.style.width = '510px';
+                circle.style.height = '510px';
+            }
+            
+            if (document.body.classList.contains('blur')) {
+                circle.style.filter = 'blur(60px)';
+                circle.style.opacity = 0.35;
+            } else {
+                circle.style.filter = 'blur(38px)';
+                circle.style.opacity = 1;
+            }
+        }
+
+        function nextCircle() {
+            currentCircleIndex = (currentCircleIndex + 1) % circles.length;
+            currentRotation += 45; 
+            dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+            updateCircle();
+        }
+
+        function prevCircle() {
+            currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
+            currentRotation -= 45; 
+            dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+            updateCircle();
+        }
+
+        function changeColors() {
+            currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
+            const newBgColor = backgroundColors[currentColorIndex];
+            const newTextColor = textColors[currentColorIndex];
+            document.body.style.backgroundColor = newBgColor;
+            
+            const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
+            elements.forEach(element => {
+                if (element.classList.contains('triangle-left')) {
+                    element.style.borderRightColor = newTextColor;
+                } else if (element.classList.contains('triangle-right')) {
+                    element.style.borderLeftColor = newTextColor;
+                } else {
+                    element.style.color = newTextColor;
+                }
+            });
+
+            document.querySelector('.circle').style.background = newTextColor;
+            document.querySelector('.circle-index').style.color = newBgColor;
+            
+            const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
+            dashedCirclePath.style.stroke = newTextColor;
+        }
+
+        function showExcerpt(className) {
+            excerptText.style.display = 'block';
+            excerptText.style.visibility = 'visible';
+            
+            const allExcerpts = excerptText.querySelectorAll('div');
+            allExcerpts.forEach(div => {
+                div.style.display = 'none';
+                div.style.opacity = '0';
+            });
+            
+            const currentExcerpt = excerptText.querySelector(`.${className}`);
+            if (currentExcerpt) {
+                currentExcerpt.style.display = 'block';
+                setTimeout(() => {
+                    currentExcerpt.style.opacity = '1';
+                    excerptText.style.opacity = '1';
+                }, 50);
+            }
+            
+            body.classList.add('blur');
+            
             const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
             const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
             
-            // Swap colors back
             document.body.style.backgroundColor = currentTextColor;
             const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
             elements.forEach(element => {
@@ -720,101 +498,240 @@ backBtns.forEach(button => {
             
             const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
             dashedCirclePath.style.stroke = currentBgColor;
-        }
-        
-        // Start fade out
-        excerptText.style.opacity = '0';
-        aboutText.classList.remove('show');
-        
-        // Wait for fade animation to complete
-        setTimeout(() => {
-            // Remove blur effect
-            document.body.classList.remove('blur');
             
-            // Hide excerpt text container
-            excerptText.style.visibility = 'hidden';
-            excerptText.style.display = 'none';
-            
-            // Hide all individual excerpts
-            excerptText.querySelectorAll('div').forEach(div => {
-                div.style.display = 'none';
-                div.style.opacity = '0';
-            });
-            
-            enableButtons();
+            disableButtons();
             updateCircle();
-        }, 300);
-    });
-});
+        }
+
+        function playNextTrack() {
+            audioPlayer.src = musicFiles[currentTrack].src;
+            songTitleElement.textContent = musicFiles[currentTrack].title;
+            audioPlayer.play();
+            currentTrack = (currentTrack + 1) % musicFiles.length;
+        }
+
+        function togglePlayPause() {
+            if (!musicStarted) return;
+            
+            if (isAudioPaused) {
+                audioPlayer.play();
+                isAudioPaused = false;
+                nowPlayingText.textContent = 'now playing';
+                songTitleElement.textContent = musicFiles[(currentTrack - 1 + musicFiles.length) % musicFiles.length].title;
+            } else {
+                audioPlayer.pause();
+                isAudioPaused = true;
+                nowPlayingText.textContent = 'now paused';
+                songTitleElement.textContent = '(reticence)';
+            }
+        }
+
+        function disableButtons() {
+            colorBtn.classList.add('disabled');
+            aboutBtn.classList.add('disabled');
+            triangleLeft.classList.add('disabled');
+            triangleRight.classList.add('disabled');
+            nowPlayingText.classList.add('disabled');
+        }
+
+        function enableButtons() {
+            colorBtn.classList.remove('disabled');
+            aboutBtn.classList.remove('disabled');
+            triangleLeft.classList.remove('disabled');
+            triangleRight.classList.remove('disabled');
+            nowPlayingText.classList.remove('disabled');
+        }
+
+        function hideIntroMessageInstantly() {
+            const introMessage = document.querySelector('.intro-message');
+            if (introMessage) {
+                introMessage.style.display = 'none';
+                introMessage.style.visibility = 'hidden';
+                introMessage.style.opacity = '0';
+                
+                const fadeIntervals = window.fadeOutIntervals || [];
+                fadeIntervals.forEach(interval => clearInterval(interval));
+            }
+        }
+
+        circleIndex.style.display = 'none';
+
+        circle.addEventListener('mouseenter', () => {
+            if (firstClickDone) {
+                circleIndex.style.display = 'block';
+                circleIndex.textContent = circles[currentCircleIndex].hoverText;
+            }
+        });
+
+        circle.addEventListener('mouseleave', () => {
+            circleIndex.style.display = 'none';
+        });
+
+        circle.addEventListener('mousemove', (e) => {
+            if (firstClickDone) {
+                circleIndex.style.left = `${e.clientX}px`;
+                circleIndex.style.top = `${e.clientY}px`;
+            }
+        });
+
+        circle.addEventListener('click', (event) => {
+            hideIntroMessageInstantly();
+            
+            if (!firstClickDone) return;
+            
+            event.stopPropagation();
+            showExcerpt(circles[currentCircleIndex].className);
+        });
+
+        triangleLeft.addEventListener('click', () => {
+            hideIntroMessageInstantly();
+            if (firstClickDone && !triangleLeft.classList.contains('disabled')) {
+                const centerElement = document.querySelector('.center');
+                centerElement.style.opacity = '0.6';
+                centerElement.style.filter = 'blur(5px)';
+                setTimeout(() => {
+                    centerElement.style.opacity = '1';
+                    centerElement.style.filter = 'none';
+                }, 300);
+                prevCircle();
+            }
+        });
+
+        triangleRight.addEventListener('click', () => {
+            hideIntroMessageInstantly();
+            if (firstClickDone && !triangleRight.classList.contains('disabled')) {
+                const centerElement = document.querySelector('.center');
+                centerElement.style.opacity = '0.6';
+                centerElement.style.filter = 'blur(5px)';
+                setTimeout(() => {
+                    centerElement.style.opacity = '1';
+                    centerElement.style.filter = 'none';
+                }, 300);
+                nextCircle();
+            }
+        });
+
+        nowPlayingText.style.cursor = 'pointer';
+        nowPlayingText.addEventListener('click', togglePlayPause);
+
+        audioPlayer.addEventListener('ended', playNextTrack);
+
+        document.addEventListener('mousemove', function(event) {
+            lastMouseX = event.clientX;
+            lastMouseY = event.clientY;
+            updateCoordinates(lastMouseX, lastMouseY);
+        });
+
+        document.addEventListener('click', (event) => {
+            const isButton = event.target.closest('.button') || 
+                            event.target.closest('.backBtn') || 
+                            event.target.closest('.triangle-left') ||
+                            event.target.closest('.triangle-right') ||
+                            event.target.closest('.about-text') ||
+                            event.target.closest('.excerpt-text');
+            
+            if (!firstClickDone) {
+                musicStarted = true;
+                playNextTrack();
+                audioPlayer.muted = false;
+                const circleElement = document.querySelector('.circle');
+                circleElement.classList.add('clicked');
+                circleElement.style.pointerEvents = 'auto';
+                circleElement.style.cursor = 'pointer';
+                
+                document.querySelectorAll('.center, .smallcircle, .button, .music, .coord, .triangle-container').forEach(el => {
+                    el.style.visibility = 'visible';
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, 50);
+                });
+
+                const introMessage = document.querySelector('.intro-message');
+                let opacity = getComputedStyle(introMessage).opacity;
+                const fadeOut = setInterval(() => {
+                    if (opacity > 0) {
+                        opacity -= 0.02;
+                        introMessage.style.opacity = opacity;
+                    } else {
+                        clearInterval(fadeOut);
+                        setTimeout(() => {
+                            introMessage.style.display = 'none';
+                        }, 500);
+                    }
+                }, 100);
+                
+                window.fadeOutIntervals = window.fadeOutIntervals || [];
+                window.fadeOutIntervals.push(fadeOut);
+                
+                firstClickDone = true;
+                updateCircle();
+            }
+        });
+
+        colorBtn.addEventListener('click', () => {
+            if (!colorBtn.classList.contains('disabled')) {
+                changeColors();
+            }
+        });
+
+        aboutBtn.addEventListener('click', () => {
+            if (aboutBtn.classList.contains('disabled')) return;
+            hideIntroMessageInstantly();
+            body.classList.add('blur');
+            aboutText.classList.add('show');
+            disableButtons();
+            updateCircle();
+        });
+
+        backBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const excerptText = document.querySelector('.excerpt-text');
+                const aboutText = document.querySelector('.about-text');
+                
+                const isInExcerpt = button.closest('.excerpt-text') !== null;
+                
+                if (isInExcerpt) {
+                    const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
+                    const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
+                    
+                    document.body.style.backgroundColor = currentTextColor;
+                    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
+                    elements.forEach(element => {
+                        if (element.classList.contains('triangle-left')) {
+                            element.style.borderRightColor = currentBgColor;
+                        } else if (element.classList.contains('triangle-right')) {
+                            element.style.borderLeftColor = currentBgColor;
+                        } else {
+                            element.style.color = currentBgColor;
+                        }
+                    });
+
+                    document.querySelector('.circle').style.background = currentBgColor;
+                    document.querySelector('.circle-index').style.color = currentTextColor;
+                    
+                    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
+                    dashedCirclePath.style.stroke = currentBgColor;
+                }
+                
+                excerptText.style.opacity = '0';
+                aboutText.classList.remove('show');
+                
+                setTimeout(() => {
+                    document.body.classList.remove('blur');
+                    
+                    excerptText.style.visibility = 'hidden';
+                    excerptText.style.display = 'none';
+                    
+                    excerptText.querySelectorAll('div').forEach(div => {
+                        div.style.display = 'none';
+                        div.style.opacity = '0';
+                    });
+                    
+                    enableButtons();
+                    updateCircle();
+                }, 300);
+            });
+        });
         </script>
     </body>
 </html>
-
-
-
-
-<!--
-
-
-THE INVITATION
-
-
-
-WILD GEESE
-
-
-
-
-THE GENTLE SEDUCTION
-                    He worked with computers; she worked with trees, and the flowers that took hold on the sides of the Mountain.<br>
-                    She was surprised that he was interested in her. He was so smart; she was so ... normal. But he was interesting; he always said something new and different; he was nice.<br>                   
-                    She was 25. He was older, almost 33; sometimes, Jack seemed very old indeed.<br>                    
-                    One day they walked through the mist of a gray day by the Mountain. The forest here on the edge of Rainier glowed in the mist, bright with lush greens. On this day he told her about the future, the future he was building.<br>
-                    Other times when he had spoken of the future, a wild look had entered his eyes. But now his eyes were sharply focused as he talked, as if, this time, he could see it all very clearly. He spoke as if he were describing something as real and obvious as the veins of a leaf hanging down before them on the path.<br>
-                    "Have you ever heard of Singularity?" he asked.<br>
-                    She shook her head. "What's that?"<br>
-                    "Singularity is a time in the future. It'll occur when the rate of change of technology is very great--so great that the effort to keep up with the change will overwhelm us. People will face a whole new set of problems that we can't even imagine." A look of great tranquility smoothed the ridges around his eyes. "On the other hand, all our normal, day to day problems fade away. For example, you'll be immortal."<br>
-                    She shook her head with distaste. "I don't want to live forever," she said.<br>
-                    He smiled, his eyes twinkling. "Of course you do, you just don't know it yet."<br>
-                    She shuddered. "The future scares me."<br>
-                    "There's no reason to fear it. You'll love it." He looked away from her. His next words were bitter, but his tone was resigned. "It pisses me off that you'll live to see it and I won't."<br>
-                    Speaking to the sorrow in his voice, she tried to cheer him. "You'll live to see it too," she replied.<br>
-                    He shook his head. "No. I have a bad heart. My father died young from a heart attack, and so did my father's father. If I'm lucky, I have maybe 30 more years. It'll take at least a hundred years for us to get to Singularity."<br>
-                    "Then I'll be dead before it happens, too. Good," she said.<br>
-                    He chuckled. "No. You'll live long enough, so that they'll figure out how to make you live long enough so that you can live longer."<br>
-                    "You're still only 7 years older than I am."<br>
-                    "Ah, but you have your mother's genes. She looks very young."<br>
-                    She smiled, and changed the subject. "I'll have to tell her you said that. She'll like it."<br>
-                    There was a long pause. Then she confessed, "My grandfather is 92, and he still cuts the grass every week."<br>
-                    Jack smiled triumphantly. "See?"<br>
-                    She was adamant. "I'll live to be 80 or 90. I don't want to live longer than that."<br>
-                    "Not if you're crippled, of course not. But they'll find ways of rejuvenating you." He laughed knowingly. "You'll look older when you're 60 than when you're 120" he said.<br>
-                    She just shook her head.<br>
-                    Another time, as they walked in the sun along the beach of Fox Island, he told her more about the future. "You'll have a headband." He ran his fingers across his forehead; he squinted as the wind blew sand in his eyes. "It'll allow you to talk right to your computer."<br>
-                    She frowned. "I don't want to talk to a computer."<br>
-                    "Sure you do. At least, you will. Your computer will watch your baby all night long. If it sees something wrong, it'll wake you." Wicked delight widened his smile, and she knew he would now tell her something outrageous. "While you're laying in bed with your eyes closed, you'll look at your baby through your computer's TV camera to see if it's something serious."<br>
-                    "Ugh."<br>
-                    "Of course, there's a tiny chance, really tiny, that an accident could scramble your memories."<br>
-                    The thought made her dizzy with horror. "I would rather die." She grabbed his arm and pulled him under the bridge, out of the wind. She shuddered, though unsure whether her chill came from the wind or the fear.<br>
-                    He changed his tack. Pointing at a scattering of elaborate seaside mansions across the water, he asked, "Would you like to live in one of those?"<br>
-                    She studied them. "Maybe that one," she said, pointing at a beautiful old Victorian home. "Or that one." She pointed at another, very different from the first, a series of diagonal slashes with huge windows.<br>
-                    "Have you ever heard of nanotechnology?" he asked.<br>
-                    "Uh-uh."<br>
-                    "Well, with nanotechnology they'll build these tiny little machines--machines the size of molecules." He pointed at the drink in her hand. "They'll put a billion of them in a spaceship the size of a Coke can, and shoot it off to an asteroid. The Coke can will rebuild the asteroid into mansions and palaces. You'll have an asteroid all to your self, if you want one."<br>
-                    "I don't want an asteroid. I don't want to go into space."<br>
-                    He shook his head. "Don't you want to see Mars? You liked the Grand Canyon; I remember how you told me about it. Mars has huge gorges--they make the Grand Canyon look tiny. Don't you want to see them? Don't you want to hike across them?"<br>
-                    It took her a long time to reply. "I guess so," she admitted.<br>
-                    "I won't tell you all the things I expect to happen," he smiled mischievously, "I'm afraid I'd really scare you. But you'll see it all. And you'll remember that I told you." His voice grew intense. "And you'll remember that I knew you'd remember."<br>
-                    She shook her head. Sometimes Jack was just silly.<br>
-                    They never made love, though often, they fell asleep in each other's arms. Sometimes she wondered why; she wondered if he also wondered why. Somehow it just didn't seem important.<br>
-                    He seemed so at home in the deep forest, he so clearly belonged on the Mountain, she first thought they might stay together forever. But one day she went with him to his office. She watched as he worked with computers, as he worked with other people. He was as natural a part of their computer world as he was a part of her Mountain world.<br>
-                    Working in that alien world, he was a different person. In the woods, he was a calm source of sustaining strength. Here, he was a feverish instructor. His heart belonged to the forest, but his mind, she realized, belonged to the machines that would build his vision.<br>
-                    One day he received a call. A distant company gave him an offer he could not refuse. So he went to California, to build great computers, to hurry his vision to fruition.<br>
-                    She stayed by the Mountain. She walked the snows, and watched the birds fly overhead. Yet no bird flew so high that she could not climb the slopes of Rainier until she stood above them.<br>                    
-                    He would come to visit on weekends sometimes, and they would backpack, or ski cross country. But his visits became less frequent. He would write instead. That too decreased in regularity. One letter was the last, though neither of them knew it at the time.<br>                    
-                    A year passed. And by then, it just didn't seem to matter.<br>
-
-
-THE EGG
-
- -->
