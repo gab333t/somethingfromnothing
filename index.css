@@ -92,7 +92,7 @@ h1 {
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
-    pointer-events: none;
+    pointer-events: auto;  /* Changed from 'none' to 'auto' */
     z-index: 10;
     opacity: 0;
     transition: opacity 2s ease;
@@ -107,7 +107,13 @@ h1 {
     filter: blur(2px);
     opacity: 1;
     transition: opacity 1s ease, filter 1s ease, border-color 1s ease;
-    }
+}
+
+.triangle-left:hover, .triangle-right:hover {
+    filter: blur(3px);
+    transition: filter 0.3s ease;
+    cursor: pointer;
+}
 
 .triangle-left {
     left: 30px;
