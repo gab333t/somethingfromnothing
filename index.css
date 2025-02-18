@@ -87,6 +87,47 @@ h1 {
     transition: all 1s ease;
 }
 
+.triangle-container {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    pointer-events: auto;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.triangle-left, .triangle-right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+.triangle-left {
+    left: 42px;
+    border-right: 30px solid #ECB8EA;
+    filter: blur(1.75px);
+}
+
+.triangle-right {
+    right: 42px;
+    border-left: 30px solid #ECB8EA;
+    filter: blur(1.75px);
+}
+
+.triangle-left:hover, .triangle-right:hover {
+    filter: blur(3.5px);
+    transition: filter 0.3s ease;
+    cursor: pointer;
+}
+
+.triangle-container.visible {
+    opacity: 1;
+}
+
 .smallcircle {
     width: 40px;
     height: 40px;
@@ -232,13 +273,18 @@ h4 {
     opacity: 1;
 }
 
-body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord {
+body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord, body.blur .triangle-container {
     filter: blur(5px);
 }
 
 body.blur .circle {
     filter: blur(60px);
     opacity: 35%;
+}
+
+body.blur .triangle-left, body.blur .triangle-right {
+    opacity: 35%;
+    cursor: default;
 }
 
 body.blur .button {
@@ -263,6 +309,18 @@ body.blur .button {
     }
     .circle.clicked {
         filter: blur(34px);
+    }
+    .triangle-left {
+        left: 20px;
+        border-right: 25px solid #ECB8EA;
+    }
+    .triangle-right {
+        right: 20px;
+        border-left: 25px solid #ECB8EA;
+    }
+    .triangle-left, .triangle-right {
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
     }
     h2 {
         font-size: 14px;
@@ -317,11 +375,14 @@ body.blur .button {
         bottom: 65px;
         line-height: 10px;
     }
-    body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord {
+    body.blur h1, body.blur .center, body.blur .smallcircle, body.blur .button, body.blur .music, body.blur .coord, body.blur .triangle-container {
         filter: blur(6.5px);
     }
     body.blur .circle {
         filter: blur(64px);
+        opacity: 36%;
+    }
+    body.blur .triangle-left, body.blur .triangle-right {
         opacity: 36%;
     }
     #aboutButton:hover, #colorButton:hover, #playButton:hover, .backBtn:hover {
@@ -334,6 +395,6 @@ body.blur .button {
     visibility: hidden;
 }
 
-body, body *, .circle, .slider, .slider:before {
+body, body *, .circle {
     transition: all 0.3s ease;
 }
