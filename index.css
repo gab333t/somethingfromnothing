@@ -68,7 +68,8 @@ h1 {
     animation: pulsate 3s ease-in-out infinite;
     visibility: visible;
     position: relative;
-    cursor: pointer;
+    pointer-events: none;
+    cursor: default;
 }
 
 .dashed-circle-svg {
@@ -118,6 +119,8 @@ h1 {
     opacity: 1;
     filter: blur(38px);
     transition: all 1s ease;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .triangle-container {
@@ -333,8 +336,32 @@ body.blur .button {
 }
 
 .excerpt-text {
-    display: none;
+    opacity: 0;
     visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    text-align: left;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.excerpt-text.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.excerpt-text > div {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.excerpt-text > div.active {
+    display: block;
+    opacity: 1;
 }
 
 body, body *, .circle, .circle-index {
