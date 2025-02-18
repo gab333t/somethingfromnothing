@@ -92,7 +92,7 @@ h1 {
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
-    pointer-events: auto;
+    pointer-events: none;
     z-index: 10;
     opacity: 0;
     transition: opacity 2s ease;
@@ -104,24 +104,19 @@ h1 {
     height: 0;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
-}
+    filter: blur(2px);
+    opacity: 1;
+    transition: opacity 1s ease, filter 1s ease, border-color 1s ease;
+    }
 
 .triangle-left {
-    left: 42px;
+    left: 30px;
     border-right: 30px solid #ECB8EA;
-    filter: blur(1.75px);
 }
 
 .triangle-right {
-    right: 42px;
+    right: 30px;
     border-left: 30px solid #ECB8EA;
-    filter: blur(1.75px);
-}
-
-.triangle-left:hover, .triangle-right:hover {
-    filter: blur(3.5px);
-    transition: filter 0.3s ease;
-    cursor: pointer;
 }
 
 .triangle-container.visible {
@@ -283,14 +278,13 @@ body.blur .circle {
 }
 
 body.blur .triangle-left, body.blur .triangle-right {
-    opacity: 35%;
-    cursor: default;
+    opacity: 0.35;
+    filter: blur(5px);
 }
 
 body.blur .button {
     cursor: default;
 }
-
 
 @media screen and (max-width: 700px) {
     h1 {
@@ -321,6 +315,7 @@ body.blur .button {
     .triangle-left, .triangle-right {
         border-top: 15px solid transparent;
         border-bottom: 15px solid transparent;
+        transition: opacity 0.3s ease, filter 0.3s ease;
     }
     h2 {
         font-size: 14px;
@@ -383,7 +378,8 @@ body.blur .button {
         opacity: 36%;
     }
     body.blur .triangle-left, body.blur .triangle-right {
-        opacity: 36%;
+        opacity: 0.36;
+        filter: blur(6.5px);
     }
     #aboutButton:hover, #colorButton:hover, #playButton:hover, .backBtn:hover {
         filter: blur(0px);
