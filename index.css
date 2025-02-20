@@ -69,7 +69,7 @@ h1 {
     visibility: visible;
     position: relative;
     pointer-events: none;
-    cursor: default;
+    transition: opacity 0.4s ease-in-out, filter 0.4s ease-in-out;
 }
 
 .dashed-circle-svg {
@@ -80,7 +80,7 @@ h1 {
     width: 630px;
     height: 630px;
     pointer-events: none;
-    transition: transform 0.6s ease;
+    transition: opacity 0.4s ease-in-out, transform 0.6s ease-in-out;
     filter: blur(2.75px);
 }
 
@@ -91,6 +91,31 @@ h1 {
 .circle-index {
     display: none;
 }
+
+.inner-circle {
+    width: 20px;
+    height: 20px;
+    background: #FFD8F5;
+    border: 5px solid #671352;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(2px);
+    cursor: pointer;
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease, filter 0.3s ease, opacity 0.4s ease-in-out;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 1;
+}
+
+.inner-circle:hover {
+    width: 22px;
+    height: 22px;
+    filter: blur(2.5px);
+}
+
 
 @keyframes pulsate {
     0% {
@@ -415,19 +440,29 @@ body, body *, .circle, .circle-index {
         margin-top: -180px;
     }
     .circle {
-        width: 310px;
-        height: 310px;
+        width: 310px !important; 
+        height: 310px !important;
+        filter: blur(30px);
     }
     .dashed-circle-svg {
         width: 360px;
         height: 360px;
-        filter: blur(1.5px); 
+        filter: blur(1.5px);
     }
     .circle.clicked {
         filter: blur(34px);
     }
     .circle-index {
         font-size: 20px;
+    }
+    .inner-circle {
+        width: 16px;
+        height: 16px;
+    }
+
+    .inner-circle:hover {
+        width: 18px;
+        height: 18px;
     }
     .triangle-container {
         margin-top: 220px;

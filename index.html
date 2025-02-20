@@ -27,6 +27,7 @@
                 <circle cx="300" cy="300" r="300" fill="none" stroke="#ECB8EA" stroke-width="45" 
                         stroke-dasharray="3 233" opacity="0.75" />
             </svg>
+            <div class="inner-circle"></div>
             <div class="circle-index">1</div>
         </div>
 
@@ -350,134 +351,368 @@
         ];
 
         const backgroundColors = ['#671352', '#0C2787', '#48363D', '#B69CE6', '#136751', '#CF2D29', '#53291F', '#6D769D']; 
-        const textColors = ['#FFD8F5', '#FFEFC1', '#F15C94', '#301266', '#FFE1D8', '#E49432', '#FFAD98', '#1F2333'];
+const textColors = ['#FFD8F5', '#FFEFC1', '#F15C94', '#301266', '#FFE1D8', '#E49432', '#FFAD98', '#1F2333'];
 
-        let currentColorIndex = 0;
-        let firstClickDone = false;
-        let currentRotation = 0;
+let currentColorIndex = 0;
+let firstClickDone = false;
+let currentRotation = 0;
 
-        const circles = [
-            { index: 1, className: "theegg" },
-            { index: 2, className: "wildgeese" },
-            { index: 3, className: "theinvitation" },
-            { index: 4, className: "leavehere" },
-            { index: 5, className: "knock" },
-            { index: 6, className: "outofmeat" },
-            { index: 7, className: "iam" },
-            { index: 8, className: "songofmyself" }
-        ];
+const circles = [
+    { index: 1, className: "theegg" },
+    { index: 2, className: "wildgeese" },
+    { index: 3, className: "theinvitation" },
+    { index: 4, className: "leavehere" },
+    { index: 5, className: "knock" },
+    { index: 6, className: "outofmeat" },
+    { index: 7, className: "iam" },
+    { index: 8, className: "songofmyself" }
+];
 
-        let currentCircleIndex = 0;
-        let lastMouseX = 0;
-        let lastMouseY = 0;
+let currentCircleIndex = 0;
+let lastMouseX = 0;
+let lastMouseY = 0;
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+const audioPlayer = document.getElementById('audioPlayer');
+const songTitleElement = document.getElementById('songTitle');
+const coordinatesElement = document.getElementById('coordinates');
+const colorBtn = document.getElementById('colorButton');
+const aboutBtn = document.getElementById('aboutButton');
+const aboutText = document.querySelector('.about-text');
+const excerptText = document.querySelector('.excerpt-text');
+const backBtns = document.querySelectorAll('.backBtn');
+const body = document.body;
+const nowPlayingText = document.querySelector('.music h2.bold');
+const circle = document.querySelector('.circle');
+const triangleLeft = document.querySelector('.triangle-left');
+const triangleRight = document.querySelector('.triangle-right');
+const dashedCircle = document.querySelector('.dashed-circle-svg');
+const innerCircle = document.querySelector('.inner-circle');
+
+let currentTrack = 0;
+let musicStarted = false;
+let isAudioPaused = false;
+
+function updateCoordinates(mouseX, mouseY) {
+    coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+}
+
+function updateCircle() {
+    // Remove the responsive width setting since CSS will handle it
+    if (document.body.classList.contains('blur')) {
+        circle.style.filter = 'blur(60px)';
+        circle.style.opacity = 0.35;
+        innerCircle.style.opacity = 0.35;
+    } else {
+        circle.style.filter = 'blur(38px)';
+        circle.style.opacity = 1;
+        innerCircle.style.opacity = 1;
+    }
+}
+
+function nextCircle() {
+    currentCircleIndex = (currentCircleIndex + 1) % circles.length;
+    currentRotation += 45; 
+    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+    updateCircle();
+}
+
+function prevCircle() {
+    currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
+    currentRotation -= 45; 
+    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+    updateCircle();
+}
+
+function changeColors() {
+    currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
+    const newBgColor = backgroundColors[currentColorIndex];
+    const newTextColor = textColors[currentColorIndex];
+    document.body.style.backgroundColor = newBgColor;
+    
+    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
+    elements.forEach(element => {
+        if (element.classList.contains('triangle-left')) {
+            element.style.borderRightColor = newTextColor;
+        } else if (element.classList.contains('triangle-right')) {
+            element.style.borderLeftColor = newTextColor;
+        } else {
+            element.style.color = newTextColor;
         }
-        shuffleArray(musicFiles);
+    });
 
-        const audioPlayer = document.getElementById('audioPlayer');
-        const songTitleElement = document.getElementById('songTitle');
-        const coordinatesElement = document.getElementById('coordinates');
-        const colorBtn = document.getElementById('colorButton');
-        const aboutBtn = document.getElementById('aboutButton');
-        const aboutText = document.querySelector('.about-text');
-        const excerptText = document.querySelector('.excerpt-text');
-        const backBtns = document.querySelectorAll('.backBtn');
-        const body = document.body;
-        const nowPlayingText = document.querySelector('.music h2.bold');
-        const circle = document.querySelector('.circle');
-        const triangleLeft = document.querySelector('.triangle-left');
-        const triangleRight = document.querySelector('.triangle-right');
-        const dashedCircle = document.querySelector('.dashed-circle-svg');
+    // Update inner circle colors
+    const innerCircle = document.querySelector('.inner-circle');
+    innerCircle.style.background = newTextColor;
+    innerCircle.style.borderColor = newBgColor;
 
-        let currentTrack = 0;
-        let musicStarted = false;
-        let isAudioPaused = false;
+    document.querySelector('.circle').style.background = newTextColor;
+    
+    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
+    dashedCirclePath.style.stroke = newTextColor;
+}
 
-        function updateCoordinates(mouseX, mouseY) {
-            coordinatesElement.textContent = `(${(mouseX / window.innerWidth * 180 - 90).toFixed(4)}, ${(mouseY / window.innerHeight * 360 - 180).toFixed(4)})`;
+function showExcerpt(className) {
+    excerptText.style.display = 'block';
+    excerptText.style.visibility = 'visible';
+    
+    const allExcerpts = excerptText.querySelectorAll('div');
+    allExcerpts.forEach(div => {
+        div.style.display = 'none';
+        div.style.opacity = '0';
+    });
+    
+    const currentExcerpt = excerptText.querySelector(`.${className}`);
+    if (currentExcerpt) {
+        currentExcerpt.style.display = 'block';
+        setTimeout(() => {
+            currentExcerpt.style.opacity = '1';
+            excerptText.style.opacity = '1';
+        }, 50);
+    }
+    
+    body.classList.add('blur');
+    
+    const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
+    const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
+    
+    document.body.style.backgroundColor = currentTextColor;
+    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
+    elements.forEach(element => {
+        if (element.classList.contains('triangle-left')) {
+            element.style.borderRightColor = currentBgColor;
+        } else if (element.classList.contains('triangle-right')) {
+            element.style.borderLeftColor = currentBgColor;
+        } else {
+            element.style.color = currentBgColor;
         }
+    });
 
-        function updateCircle() {
-            if (window.innerWidth <= 700) {
-                circle.style.width = '310px';
-                circle.style.height = '310px';
+    // Update inner circle colors when swapping
+    const innerCircle = document.querySelector('.inner-circle');
+    innerCircle.style.background = currentBgColor;
+    innerCircle.style.borderColor = currentTextColor;
+
+    document.querySelector('.circle').style.background = currentBgColor;
+    
+    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
+    dashedCirclePath.style.stroke = currentBgColor;
+    
+    disableButtons();
+    updateCircle();
+}
+
+function playNextTrack() {
+    audioPlayer.src = musicFiles[currentTrack].src;
+    songTitleElement.textContent = musicFiles[currentTrack].title;
+    audioPlayer.play();
+    currentTrack = (currentTrack + 1) % musicFiles.length;
+}
+
+function togglePlayPause() {
+    if (!musicStarted) return;
+    
+    if (isAudioPaused) {
+        audioPlayer.play();
+        isAudioPaused = false;
+        nowPlayingText.textContent = 'now playing';
+        songTitleElement.textContent = musicFiles[(currentTrack - 1 + musicFiles.length) % musicFiles.length].title;
+    } else {
+        audioPlayer.pause();
+        isAudioPaused = true;
+        nowPlayingText.textContent = 'now paused';
+        songTitleElement.textContent = '(reticence)';
+    }
+}
+
+function disableButtons() {
+    colorBtn.classList.add('disabled');
+    aboutBtn.classList.add('disabled');
+    triangleLeft.classList.add('disabled');
+    triangleRight.classList.add('disabled');
+    nowPlayingText.classList.add('disabled');
+}
+
+function enableButtons() {
+    colorBtn.classList.remove('disabled');
+    aboutBtn.classList.remove('disabled');
+    triangleLeft.classList.remove('disabled');
+    triangleRight.classList.remove('disabled');
+    nowPlayingText.classList.remove('disabled');
+}
+
+function hideIntroMessageInstantly() {
+    const introMessage = document.querySelector('.intro-message');
+    if (introMessage) {
+        introMessage.style.display = 'none';
+        introMessage.style.visibility = 'hidden';
+        introMessage.style.opacity = '0';
+        
+        const fadeIntervals = window.fadeOutIntervals || [];
+        fadeIntervals.forEach(interval => clearInterval(interval));
+    }
+}
+
+circle.style.cursor = 'default';
+circle.style.pointerEvents = 'none';
+
+innerCircle.addEventListener('click', (event) => {
+    hideIntroMessageInstantly();
+    
+    if (!firstClickDone) return;
+    
+    event.stopPropagation();
+    showExcerpt(circles[currentCircleIndex].className);
+});
+
+triangleLeft.addEventListener('click', () => {
+    hideIntroMessageInstantly();
+    if (firstClickDone && !triangleLeft.classList.contains('disabled')) {
+        const innerCircle = document.querySelector('.inner-circle');
+        
+        // Only set opacity transition
+        innerCircle.style.setProperty('transition-property', 'opacity');
+        innerCircle.style.setProperty('transition-duration', '0.4s');
+        innerCircle.style.setProperty('transition-timing-function', 'ease-in-out');
+        innerCircle.style.opacity = '0';
+        
+        // Update circle rotation and state
+        currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
+        currentRotation -= 45; 
+        dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+        
+        // Fade back in and restore original transitions
+        setTimeout(() => {
+            innerCircle.style.opacity = '1';
+            // Reset to original transitions after fade completes
+            setTimeout(() => {
+                innerCircle.style.removeProperty('transition-property');
+                innerCircle.style.removeProperty('transition-duration');
+                innerCircle.style.removeProperty('transition-timing-function');
+            }, 400);
+        }, 400);
+    }
+});
+
+triangleRight.addEventListener('click', () => {
+    hideIntroMessageInstantly();
+    if (firstClickDone && !triangleRight.classList.contains('disabled')) {
+        const innerCircle = document.querySelector('.inner-circle');
+        
+        // Only set opacity transition
+        innerCircle.style.setProperty('transition-property', 'opacity');
+        innerCircle.style.setProperty('transition-duration', '0.4s');
+        innerCircle.style.setProperty('transition-timing-function', 'ease-in-out');
+        innerCircle.style.opacity = '0';
+        
+        // Update circle rotation and state
+        currentCircleIndex = (currentCircleIndex + 1) % circles.length;
+        currentRotation += 45; 
+        dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+        
+        // Fade back in and restore original transitions
+        setTimeout(() => {
+            innerCircle.style.opacity = '1';
+            // Reset to original transitions after fade completes
+            setTimeout(() => {
+                innerCircle.style.removeProperty('transition-property');
+                innerCircle.style.removeProperty('transition-duration');
+                innerCircle.style.removeProperty('transition-timing-function');
+            }, 400);
+        }, 400);
+    }
+});
+
+nowPlayingText.style.cursor = 'pointer';
+nowPlayingText.addEventListener('click', togglePlayPause);
+
+audioPlayer.addEventListener('ended', playNextTrack);
+
+document.addEventListener('mousemove', function(event) {
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
+    updateCoordinates(lastMouseX, lastMouseY);
+});
+
+document.addEventListener('click', (event) => {
+    const isButton = event.target.closest('.button') || 
+                    event.target.closest('.backBtn') || 
+                    event.target.closest('.triangle-left') ||
+                    event.target.closest('.triangle-right') ||
+                    event.target.closest('.about-text') ||
+                    event.target.closest('.excerpt-text');
+    
+    if (!firstClickDone) {
+        musicStarted = true;
+        playNextTrack();
+        audioPlayer.muted = false;
+        
+        const circleElement = document.querySelector('.circle');
+        circleElement.classList.add('clicked');
+        circleElement.style.pointerEvents = 'none';
+        circleElement.style.cursor = 'default';
+        
+        innerCircle.style.visibility = 'visible';
+        innerCircle.style.pointerEvents = 'auto';
+        
+        document.querySelectorAll('.center, .smallcircle, .button, .music, .coord, .triangle-container').forEach(el => {
+            el.style.visibility = 'visible';
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, 50);
+        });
+
+        const introMessage = document.querySelector('.intro-message');
+        let opacity = getComputedStyle(introMessage).opacity;
+        const fadeOut = setInterval(() => {
+            if (opacity > 0) {
+                opacity -= 0.02;
+                introMessage.style.opacity = opacity;
             } else {
-                circle.style.width = '510px';
-                circle.style.height = '510px';
-            }
-            
-            if (document.body.classList.contains('blur')) {
-                circle.style.filter = 'blur(60px)';
-                circle.style.opacity = 0.35;
-            } else {
-                circle.style.filter = 'blur(38px)';
-                circle.style.opacity = 1;
-            }
-        }
-
-        function nextCircle() {
-            currentCircleIndex = (currentCircleIndex + 1) % circles.length;
-            currentRotation += 45; 
-            dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-            updateCircle();
-        }
-
-        function prevCircle() {
-            currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
-            currentRotation -= 45; 
-            dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-            updateCircle();
-        }
-
-        function changeColors() {
-            currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
-            const newBgColor = backgroundColors[currentColorIndex];
-            const newTextColor = textColors[currentColorIndex];
-            document.body.style.backgroundColor = newBgColor;
-            
-            const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
-            elements.forEach(element => {
-                if (element.classList.contains('triangle-left')) {
-                    element.style.borderRightColor = newTextColor;
-                } else if (element.classList.contains('triangle-right')) {
-                    element.style.borderLeftColor = newTextColor;
-                } else {
-                    element.style.color = newTextColor;
-                }
-            });
-
-            document.querySelector('.circle').style.background = newTextColor;
-            
-            const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
-            dashedCirclePath.style.stroke = newTextColor;
-        }
-
-        function showExcerpt(className) {
-            excerptText.style.display = 'block';
-            excerptText.style.visibility = 'visible';
-            
-            const allExcerpts = excerptText.querySelectorAll('div');
-            allExcerpts.forEach(div => {
-                div.style.display = 'none';
-                div.style.opacity = '0';
-            });
-            
-            const currentExcerpt = excerptText.querySelector(`.${className}`);
-            if (currentExcerpt) {
-                currentExcerpt.style.display = 'block';
+                clearInterval(fadeOut);
                 setTimeout(() => {
-                    currentExcerpt.style.opacity = '1';
-                    excerptText.style.opacity = '1';
-                }, 50);
+                    introMessage.style.display = 'none';
+                }, 500);
             }
-            
-            body.classList.add('blur');
-            
+        }, 100);
+        
+        window.fadeOutIntervals = window.fadeOutIntervals || [];
+        window.fadeOutIntervals.push(fadeOut);
+        
+        firstClickDone = true;
+        updateCircle();
+    }
+});
+
+colorBtn.addEventListener('click', () => {
+    if (!colorBtn.classList.contains('disabled')) {
+        changeColors();
+    }
+});
+
+aboutBtn.addEventListener('click', () => {
+    if (aboutBtn.classList.contains('disabled')) return;
+    hideIntroMessageInstantly();
+    body.classList.add('blur');
+    aboutText.classList.add('show');
+    disableButtons();
+    updateCircle();
+});
+
+backBtns.forEach(button => {
+    button.addEventListener('click', () => {
+        const excerptText = document.querySelector('.excerpt-text');
+        const aboutText = document.querySelector('.about-text');
+        
+        const isInExcerpt = button.closest('.excerpt-text') !== null;
+        
+        if (isInExcerpt) {
             const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
             const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
             
@@ -493,223 +728,36 @@
                 }
             });
 
+            // Update inner circle colors when going back
+            const innerCircle = document.querySelector('.inner-circle');
+            innerCircle.style.background = currentBgColor;
+            innerCircle.style.borderColor = currentTextColor;
+
             document.querySelector('.circle').style.background = currentBgColor;
             
             const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
             dashedCirclePath.style.stroke = currentBgColor;
+        }
+        
+        excerptText.style.opacity = '0';
+        aboutText.classList.remove('show');
+        
+        setTimeout(() => {
+            document.body.classList.remove('blur');
+                        
+            excerptText.style.visibility = 'hidden';
+            excerptText.style.display = 'none';
             
-            disableButtons();
-            updateCircle();
-        }
-
-        function playNextTrack() {
-            audioPlayer.src = musicFiles[currentTrack].src;
-            songTitleElement.textContent = musicFiles[currentTrack].title;
-            audioPlayer.play();
-            currentTrack = (currentTrack + 1) % musicFiles.length;
-        }
-
-        function togglePlayPause() {
-            if (!musicStarted) return;
-            
-            if (isAudioPaused) {
-                audioPlayer.play();
-                isAudioPaused = false;
-                nowPlayingText.textContent = 'now playing';
-                songTitleElement.textContent = musicFiles[(currentTrack - 1 + musicFiles.length) % musicFiles.length].title;
-            } else {
-                audioPlayer.pause();
-                isAudioPaused = true;
-                nowPlayingText.textContent = 'now paused';
-                songTitleElement.textContent = '(reticence)';
-            }
-        }
-
-        function disableButtons() {
-            colorBtn.classList.add('disabled');
-            aboutBtn.classList.add('disabled');
-            triangleLeft.classList.add('disabled');
-            triangleRight.classList.add('disabled');
-            nowPlayingText.classList.add('disabled');
-        }
-
-        function enableButtons() {
-            colorBtn.classList.remove('disabled');
-            aboutBtn.classList.remove('disabled');
-            triangleLeft.classList.remove('disabled');
-            triangleRight.classList.remove('disabled');
-            nowPlayingText.classList.remove('disabled');
-        }
-
-        function hideIntroMessageInstantly() {
-            const introMessage = document.querySelector('.intro-message');
-            if (introMessage) {
-                introMessage.style.display = 'none';
-                introMessage.style.visibility = 'hidden';
-                introMessage.style.opacity = '0';
-                
-                const fadeIntervals = window.fadeOutIntervals || [];
-                fadeIntervals.forEach(interval => clearInterval(interval));
-            }
-        }
-
-        circle.addEventListener('click', (event) => {
-            hideIntroMessageInstantly();
-            
-            if (!firstClickDone) return;
-            
-            event.stopPropagation();
-            showExcerpt(circles[currentCircleIndex].className);
-        });
-
-        triangleLeft.addEventListener('click', () => {
-            hideIntroMessageInstantly();
-            if (firstClickDone && !triangleLeft.classList.contains('disabled')) {
-                const centerElement = document.querySelector('.center');
-                centerElement.style.opacity = '0.6';
-                centerElement.style.filter = 'blur(5px)';
-                setTimeout(() => {
-                    centerElement.style.opacity = '1';
-                    centerElement.style.filter = 'none';
-                }, 300);
-                prevCircle();
-            }
-        });
-
-        triangleRight.addEventListener('click', () => {
-            hideIntroMessageInstantly();
-            if (firstClickDone && !triangleRight.classList.contains('disabled')) {
-                const centerElement = document.querySelector('.center');
-                centerElement.style.opacity = '0.6';
-                centerElement.style.filter = 'blur(5px)';
-                setTimeout(() => {
-                    centerElement.style.opacity = '1';
-                    centerElement.style.filter = 'none';
-                }, 300);
-                nextCircle();
-            }
-        });
-
-        nowPlayingText.style.cursor = 'pointer';
-        nowPlayingText.addEventListener('click', togglePlayPause);
-
-        audioPlayer.addEventListener('ended', playNextTrack);
-
-        document.addEventListener('mousemove', function(event) {
-            lastMouseX = event.clientX;
-            lastMouseY = event.clientY;
-            updateCoordinates(lastMouseX, lastMouseY);
-        });
-
-        document.addEventListener('click', (event) => {
-            const isButton = event.target.closest('.button') || 
-                            event.target.closest('.backBtn') || 
-                            event.target.closest('.triangle-left') ||
-                            event.target.closest('.triangle-right') ||
-                            event.target.closest('.about-text') ||
-                            event.target.closest('.excerpt-text');
-            
-            if (!firstClickDone) {
-                musicStarted = true;
-                playNextTrack();
-                audioPlayer.muted = false;
-                const circleElement = document.querySelector('.circle');
-                circleElement.classList.add('clicked');
-                circleElement.style.pointerEvents = 'auto';
-                circleElement.style.cursor = 'pointer';
-                
-                document.querySelectorAll('.center, .smallcircle, .button, .music, .coord, .triangle-container').forEach(el => {
-                    el.style.visibility = 'visible';
-                    setTimeout(() => {
-                        el.classList.add('visible');
-                    }, 50);
-                });
-
-                const introMessage = document.querySelector('.intro-message');
-                let opacity = getComputedStyle(introMessage).opacity;
-                const fadeOut = setInterval(() => {
-                    if (opacity > 0) {
-                        opacity -= 0.02;
-                        introMessage.style.opacity = opacity;
-                    } else {
-                        clearInterval(fadeOut);
-                        setTimeout(() => {
-                            introMessage.style.display = 'none';
-                        }, 500);
-                    }
-                }, 100);
-                
-                window.fadeOutIntervals = window.fadeOutIntervals || [];
-                window.fadeOutIntervals.push(fadeOut);
-                
-                firstClickDone = true;
-                updateCircle();
-            }
-        });
-
-        colorBtn.addEventListener('click', () => {
-            if (!colorBtn.classList.contains('disabled')) {
-                changeColors();
-            }
-        });
-
-        aboutBtn.addEventListener('click', () => {
-            if (aboutBtn.classList.contains('disabled')) return;
-            hideIntroMessageInstantly();
-            body.classList.add('blur');
-            aboutText.classList.add('show');
-            disableButtons();
-            updateCircle();
-        });
-
-        backBtns.forEach(button => {
-            button.addEventListener('click', () => {
-                const excerptText = document.querySelector('.excerpt-text');
-                const aboutText = document.querySelector('.about-text');
-                
-                const isInExcerpt = button.closest('.excerpt-text') !== null;
-                
-                if (isInExcerpt) {
-                    const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
-                    const currentTextColor = window.getComputedStyle(document.querySelector('h1')).color;
-                    
-                    document.body.style.backgroundColor = currentTextColor;
-                    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
-                    elements.forEach(element => {
-                        if (element.classList.contains('triangle-left')) {
-                            element.style.borderRightColor = currentBgColor;
-                        } else if (element.classList.contains('triangle-right')) {
-                            element.style.borderLeftColor = currentBgColor;
-                        } else {
-                            element.style.color = currentBgColor;
-                        }
-                    });
-
-                    document.querySelector('.circle').style.background = currentBgColor;
-                    
-                    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
-                    dashedCirclePath.style.stroke = currentBgColor;
-                }
-                
-                excerptText.style.opacity = '0';
-                aboutText.classList.remove('show');
-                
-                setTimeout(() => {
-                    document.body.classList.remove('blur');
-                    
-                    excerptText.style.visibility = 'hidden';
-                    excerptText.style.display = 'none';
-                    
-                    excerptText.querySelectorAll('div').forEach(div => {
-                        div.style.display = 'none';
-                        div.style.opacity = '0';
-                    });
-                    
-                    enableButtons();
-                    updateCircle();
-                }, 300);
+            excerptText.querySelectorAll('div').forEach(div => {
+                div.style.display = 'none';
+                div.style.opacity = '0';
             });
-        });
+            
+            enableButtons();
+            updateCircle();
+        }, 300);
+    });
+});
         </script>
     </body>
 </html>
