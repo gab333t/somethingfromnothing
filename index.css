@@ -412,15 +412,15 @@ body, body *, .circle, .circle-index {
         margin-left: 28px;
     }
     .center {
-        margin-top: -170px;
+        margin-top: -180px;
     }
     .circle {
         width: 310px;
         height: 310px;
     }
     .dashed-circle-svg {
-        width: 410px;
-        height: 410px;
+        width: 360px;
+        height: 360px;
         filter: blur(1.5px); 
     }
     .circle.clicked {
@@ -430,7 +430,7 @@ body, body *, .circle, .circle-index {
         font-size: 20px;
     }
     .triangle-container {
-        margin-top: 230px;
+        margin-top: 220px;
         bottom: 10%; 
         display: flex;
         justify-content: center;
