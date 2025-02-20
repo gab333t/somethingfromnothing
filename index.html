@@ -372,6 +372,49 @@ let currentCircleIndex = 0;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
+function updateInnerCirclePosition(index) {
+    const innerCircle = document.querySelector('.inner-circle');
+    const largeCircle = document.querySelector('.circle');
+    const circleHeight = largeCircle.offsetHeight;
+    const offset = circleHeight / 1.75;
+    
+    let translateX = -50;
+    let translateY = -50;
+    
+    switch(index) {
+        case 0:
+            translateY -= offset * 1.5;
+            break;
+        case 1:
+            translateY -= offset;
+            translateX += offset;
+            break;
+        case 2:
+            translateX += offset * 1.5;
+            break;
+        case 3:
+            translateX += offset;
+            translateY += offset;
+            break;
+        case 4:
+            translateY += offset * 1.5;
+            break;
+        case 5:
+            translateY += offset;
+            translateX -= offset;
+            break;
+        case 6:
+            translateX -= offset * 1.5;
+            break;
+        case 7:
+            translateX -= offset;
+            translateY -= offset;
+            break;
+    }
+    
+    innerCircle.style.transform = `translate(${translateX}%, ${translateY}%)`;
+}
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -404,7 +447,6 @@ function updateCoordinates(mouseX, mouseY) {
 }
 
 function updateCircle() {
-    // Remove the responsive width setting since CSS will handle it
     if (document.body.classList.contains('blur')) {
         circle.style.filter = 'blur(60px)';
         circle.style.opacity = 0.35;
@@ -414,48 +456,6 @@ function updateCircle() {
         circle.style.opacity = 1;
         innerCircle.style.opacity = 1;
     }
-}
-
-function nextCircle() {
-    currentCircleIndex = (currentCircleIndex + 1) % circles.length;
-    currentRotation += 45; 
-    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-    updateCircle();
-}
-
-function prevCircle() {
-    currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
-    currentRotation -= 45; 
-    dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-    updateCircle();
-}
-
-function changeColors() {
-    currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
-    const newBgColor = backgroundColors[currentColorIndex];
-    const newTextColor = textColors[currentColorIndex];
-    document.body.style.backgroundColor = newBgColor;
-    
-    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
-    elements.forEach(element => {
-        if (element.classList.contains('triangle-left')) {
-            element.style.borderRightColor = newTextColor;
-        } else if (element.classList.contains('triangle-right')) {
-            element.style.borderLeftColor = newTextColor;
-        } else {
-            element.style.color = newTextColor;
-        }
-    });
-
-    // Update inner circle colors
-    const innerCircle = document.querySelector('.inner-circle');
-    innerCircle.style.background = newTextColor;
-    innerCircle.style.borderColor = newBgColor;
-
-    document.querySelector('.circle').style.background = newTextColor;
-    
-    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
-    dashedCirclePath.style.stroke = newTextColor;
 }
 
 function showExcerpt(className) {
@@ -494,7 +494,6 @@ function showExcerpt(className) {
         }
     });
 
-    // Update inner circle colors when swapping
     const innerCircle = document.querySelector('.inner-circle');
     innerCircle.style.background = currentBgColor;
     innerCircle.style.borderColor = currentTextColor;
@@ -559,14 +558,39 @@ function hideIntroMessageInstantly() {
     }
 }
 
+function changeColors() {
+    currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
+    const newBgColor = backgroundColors[currentColorIndex];
+    const newTextColor = textColors[currentColorIndex];
+    document.body.style.backgroundColor = newBgColor;
+    
+    const elements = document.querySelectorAll('h1, h2, h3, h4, .circle, .smallcircle, .backBtn, .triangle-left, .triangle-right');
+    elements.forEach(element => {
+        if (element.classList.contains('triangle-left')) {
+            element.style.borderRightColor = newTextColor;
+        } else if (element.classList.contains('triangle-right')) {
+            element.style.borderLeftColor = newTextColor;
+        } else {
+            element.style.color = newTextColor;
+        }
+    });
+
+    const innerCircle = document.querySelector('.inner-circle');
+    innerCircle.style.background = newTextColor;
+    innerCircle.style.borderColor = newBgColor;
+
+    document.querySelector('.circle').style.background = newTextColor;
+    
+    const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
+    dashedCirclePath.style.stroke = newTextColor;
+}
+
 circle.style.cursor = 'default';
 circle.style.pointerEvents = 'none';
 
 innerCircle.addEventListener('click', (event) => {
     hideIntroMessageInstantly();
-    
     if (!firstClickDone) return;
-    
     event.stopPropagation();
     showExcerpt(circles[currentCircleIndex].className);
 });
@@ -575,27 +599,17 @@ triangleLeft.addEventListener('click', () => {
     hideIntroMessageInstantly();
     if (firstClickDone && !triangleLeft.classList.contains('disabled')) {
         const innerCircle = document.querySelector('.inner-circle');
-        
-        // Only set opacity transition
-        innerCircle.style.setProperty('transition-property', 'opacity');
-        innerCircle.style.setProperty('transition-duration', '0.4s');
-        innerCircle.style.setProperty('transition-timing-function', 'ease-in-out');
         innerCircle.style.opacity = '0';
         
-        // Update circle rotation and state
         currentCircleIndex = (currentCircleIndex - 1 + circles.length) % circles.length;
         currentRotation -= 45; 
         dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         
-        // Fade back in and restore original transitions
         setTimeout(() => {
-            innerCircle.style.opacity = '1';
-            // Reset to original transitions after fade completes
-            setTimeout(() => {
-                innerCircle.style.removeProperty('transition-property');
-                innerCircle.style.removeProperty('transition-duration');
-                innerCircle.style.removeProperty('transition-timing-function');
-            }, 400);
+            updateInnerCirclePosition(currentCircleIndex);
+            requestAnimationFrame(() => {
+                innerCircle.style.opacity = '1';
+            });
         }, 400);
     }
 });
@@ -604,27 +618,17 @@ triangleRight.addEventListener('click', () => {
     hideIntroMessageInstantly();
     if (firstClickDone && !triangleRight.classList.contains('disabled')) {
         const innerCircle = document.querySelector('.inner-circle');
-        
-        // Only set opacity transition
-        innerCircle.style.setProperty('transition-property', 'opacity');
-        innerCircle.style.setProperty('transition-duration', '0.4s');
-        innerCircle.style.setProperty('transition-timing-function', 'ease-in-out');
         innerCircle.style.opacity = '0';
         
-        // Update circle rotation and state
         currentCircleIndex = (currentCircleIndex + 1) % circles.length;
         currentRotation += 45; 
         dashedCircle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         
-        // Fade back in and restore original transitions
         setTimeout(() => {
-            innerCircle.style.opacity = '1';
-            // Reset to original transitions after fade completes
-            setTimeout(() => {
-                innerCircle.style.removeProperty('transition-property');
-                innerCircle.style.removeProperty('transition-duration');
-                innerCircle.style.removeProperty('transition-timing-function');
-            }, 400);
+            updateInnerCirclePosition(currentCircleIndex);
+            requestAnimationFrame(() => {
+                innerCircle.style.opacity = '1';
+            });
         }, 400);
     }
 });
@@ -687,6 +691,7 @@ document.addEventListener('click', (event) => {
         
         firstClickDone = true;
         updateCircle();
+        updateInnerCirclePosition(currentCircleIndex);
     }
 });
 
@@ -704,7 +709,6 @@ aboutBtn.addEventListener('click', () => {
     disableButtons();
     updateCircle();
 });
-
 backBtns.forEach(button => {
     button.addEventListener('click', () => {
         const excerptText = document.querySelector('.excerpt-text');
@@ -728,7 +732,6 @@ backBtns.forEach(button => {
                 }
             });
 
-            // Update inner circle colors when going back
             const innerCircle = document.querySelector('.inner-circle');
             innerCircle.style.background = currentBgColor;
             innerCircle.style.borderColor = currentTextColor;
