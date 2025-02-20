@@ -412,15 +412,15 @@ body, body *, .circle, .circle-index {
         margin-left: 28px;
     }
     .center {
-        margin-top: -150px;
+        margin-top: -170px;
     }
     .circle {
         width: 310px;
         height: 310px;
     }
     .dashed-circle-svg {
-        width: 370px;
-        height: 370px;
+        width: 410px;
+        height: 410px;
         filter: blur(1.5px); 
     }
     .circle.clicked {
@@ -429,18 +429,25 @@ body, body *, .circle, .circle-index {
     .circle-index {
         font-size: 20px;
     }
-    .triangle-left {
-        left: 20px;
-        border-right: 25px solid #ECB8EA;
-    }
-    .triangle-right {
-        right: 20px;
-        border-left: 25px solid #ECB8EA;
+    .triangle-container {
+        margin-top: 230px;
+        bottom: 10%; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 65px; 
     }
     .triangle-left, .triangle-right {
+        position: static;
         border-top: 15px solid transparent;
         border-bottom: 15px solid transparent;
         transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .triangle-left {
+        border-right: 25px solid #ECB8EA;
+    }
+    .triangle-right {
+        border-left: 25px solid #ECB8EA;
     }
     .excerpt-text {
         padding: 15px;
