@@ -456,7 +456,12 @@ body, body *, .circle, .circle-index {
         padding: 15px;
     }
     .excerpt-text > div {
-        padding-top: 150px;
+        padding-top: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0;
     }
     .excerpt-text h3 {
         font-size: 38px;
