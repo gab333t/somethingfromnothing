@@ -89,17 +89,7 @@ h1 {
 }
 
 .circle-index {
-    position: fixed;
-    font-family: "Libre Caslon Text", serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 22px;
-    color: #671352;
-    filter: blur(0.3px);
-    z-index: 100;
-    pointer-events: none;
     display: none;
-    transform: translate(-50%, -50%);
 }
 
 @keyframes pulsate {

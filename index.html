@@ -357,14 +357,14 @@
         let currentRotation = 0;
 
         const circles = [
-            { index: 1, hoverText: "The Egg", className: "theegg" },
-            { index: 2, hoverText: "Wild Geese", className: "wildgeese" },
-            { index: 3, hoverText: "The Invitation", className: "theinvitation" },
-            { index: 4, hoverText: "I Don't Need Anything From Here", className: "leavehere" },
-            { index: 5, hoverText: "Knock", className: "knock" },
-            { index: 6, hoverText: "They're Made Out Of Meat", className: "outofmeat" },
-            { index: 7, hoverText: "I Am!", className: "iam" },
-            { index: 8, hoverText: "Song Of Myself", className: "songofmyself" }
+            { index: 1, className: "theegg" },
+            { index: 2, className: "wildgeese" },
+            { index: 3, className: "theinvitation" },
+            { index: 4, className: "leavehere" },
+            { index: 5, className: "knock" },
+            { index: 6, className: "outofmeat" },
+            { index: 7, className: "iam" },
+            { index: 8, className: "songofmyself" }
         ];
 
         let currentCircleIndex = 0;
@@ -390,7 +390,6 @@
         const body = document.body;
         const nowPlayingText = document.querySelector('.music h2.bold');
         const circle = document.querySelector('.circle');
-        const circleIndex = document.querySelector('.circle-index');
         const triangleLeft = document.querySelector('.triangle-left');
         const triangleRight = document.querySelector('.triangle-right');
         const dashedCircle = document.querySelector('.dashed-circle-svg');
@@ -453,7 +452,6 @@
             });
 
             document.querySelector('.circle').style.background = newTextColor;
-            document.querySelector('.circle-index').style.color = newBgColor;
             
             const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
             dashedCirclePath.style.stroke = newTextColor;
@@ -496,7 +494,6 @@
             });
 
             document.querySelector('.circle').style.background = currentBgColor;
-            document.querySelector('.circle-index').style.color = currentTextColor;
             
             const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
             dashedCirclePath.style.stroke = currentBgColor;
@@ -555,26 +552,6 @@
                 fadeIntervals.forEach(interval => clearInterval(interval));
             }
         }
-
-        circleIndex.style.display = 'none';
-
-        circle.addEventListener('mouseenter', () => {
-            if (firstClickDone) {
-                circleIndex.style.display = 'block';
-                circleIndex.textContent = circles[currentCircleIndex].hoverText;
-            }
-        });
-
-        circle.addEventListener('mouseleave', () => {
-            circleIndex.style.display = 'none';
-        });
-
-        circle.addEventListener('mousemove', (e) => {
-            if (firstClickDone) {
-                circleIndex.style.left = `${e.clientX}px`;
-                circleIndex.style.top = `${e.clientY}px`;
-            }
-        });
 
         circle.addEventListener('click', (event) => {
             hideIntroMessageInstantly();
@@ -709,7 +686,6 @@
                     });
 
                     document.querySelector('.circle').style.background = currentBgColor;
-                    document.querySelector('.circle-index').style.color = currentTextColor;
                     
                     const dashedCirclePath = document.querySelector('.dashed-circle-svg circle');
                     dashedCirclePath.style.stroke = currentBgColor;
